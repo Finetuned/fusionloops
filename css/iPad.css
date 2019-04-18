@@ -20,8 +20,10 @@ body{
   background:black;
 }
 .main{
-  width:330px;
-  height:330px;
+    width: 85%;
+    height: 65%;
+/*  width:330px;
+  height:330px;*/
   border:1px solid #CCC;
   position:absolute;
   top:0; bottom:0; left:0;right:0;
@@ -62,28 +64,97 @@ animation-duration: 20s;
 @-webkit-keyframes bob{
   0%{
     transform:rotate(0deg)
-              translate(-165px)
+              translate(-334px)
               rotate(0deg);
   }
   100%{
     transform:rotate(360deg)
-              translate(-165px)
+              translate(-334px)
               rotate(-360deg);
   }
 }
 @keyframes bob{
   0%{
     transform:rotate(0deg)
-              translate(-165px)
+              translate(-334px)
               rotate(0deg);
   
   }
   100%{
     transform:rotate(360deg)
-              translate(-165px)
+              translate(-334px)
               rotate(-360deg);
   } 
 }
-#demo, #time{
-  color:white;
+#leapGif{
+     display: none; 
+    width: 50%;
+    z-index: 5;
+    clip-path: circle(70px at center);
+    margin-top: 20%;
+/*    display: none;
+    width: 90%;
+    border-radius: 50%;
+    z-index: 5;
+*/
+ /*   display:none;
+    width: 55%;
+    border-radius: 50%;
+    z-index: 5;
+    clip-path: circle(80px at top);*/
+/*    display:none;
+    width: 100%;
+    border-radius: 50%;
+    padding: 15%;
+    text-align: center;
+    font-size: 18px;*/
 }
+#time{
+    color: white;
+    margin-top: 5%;
+    padding: 1%;
+    text-align: center;
+    font-size: 36px;
+}
+#demo{
+color: white;
+    padding: 2%;
+    text-align: center;
+    font-size: 24px;
+    width: 52%;
+    margin-top: 15%;
+/*    color: white;
+    padding: 2%;
+    text-align: center;
+    font-size: 18px;
+    width: 70%;*/
+}
+#back{
+
+}
+#tapBack{
+    color: white;
+    font-size: 36px;
+    margin-top: 30%;
+    height: 13%;
+    width: 30%;
+    margin-left: 82%;
+    margin-top: 42%;
+    /* background: cyan; */
+    /* border-radius: 50%; */
+    border-color: cyan;
+    border-style: solid;
+    border-width: 3px;
+    padding: 18px;
+    /* position: absolute; */
+    /* top: 0; */
+    /* bottom: 0; */
+    /* left: 0; */
+    /* right: 0; */
+    /* overflow: hidden; */
+    /* margin: auto; */
+    -webkit-animation: bob 10s linear;
+    -webkit-animation-play-state: paused;
+    /* animation: bob 10s linear; */
+    /* animation-play-state: paused; */
+  }

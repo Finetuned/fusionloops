@@ -89,7 +89,11 @@ function startIntro() {
             //AND START THE NEXT MISSION
             isIntroOver = true;
             startMain(1);
-
+            //and change the dscreen state so that it shows the button
+            dScreen.update({
+                state:13
+            })
+            
             answerNum = -1;
             dataToPath(answerNum);
             

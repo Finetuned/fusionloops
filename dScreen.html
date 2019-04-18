@@ -1,0 +1,182 @@
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+	  <meta charset="utf-8">
+
+	  <title></title>
+	  <meta name="description" content="">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="css/iPad.css">
+	</head>
+	<body>
+		<center>
+		<div class="main">
+			<div id="circle1"></div>
+			<div id="circle2"></div>
+			<div id="circle3"></div>
+
+<!-- <div id="back"> -->
+<!-- ARE YOU BACK? -->
+	<div id="tapBack">
+	 ARE YOU BACK?
+	</div>	
+<!-- </div> -->
+
+			<div id = "time"></div>				
+				<img src="img/leap.webp" alt="Wave your hand back and forth" id="leapGif" class="clip-circle">
+			<div id = "demo">
+			</div>
+
+
+		</div>
+	</center>
+	</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+<script src="firebase.js"></script>
+<script>
+
+var arrayWords = 
+[
+"Welcome!",
+"This is who you heard from. Discuss what you saw. Soon you'll need to choose a path to follow.", //activate timer countdown which is 2 minutes long
+"Scientist, please step forward + train your special power.", //activate at same time the image of training next //timer counts down
+"System trained, activate now.", //3 second delay before leap motion and image processing start
+"Please discuss what you have revealed.", //timer - 
+"Scientist, please choose the path to follow by saying out loud the number of the path.", //trigger from voice recognition 
+"Thank you, your choice has been registered. Please follow the new path." //timer until mission 2 starts
+]
+var index;
+interval = null;
+var circle1 = document.getElementById("circle1")
+var circle2 = document.getElementById("circle2")
+var circle3 = document.getElementById("circle3")
+
+
+var dScreen = firebase.database().ref('/fusionDB/dScreen');
+
+
+$(document).ready(function(){
+dScreen.update({
+	screenState:0
+})
+document.getElementById("tapBack").addEventListener("touchstart", touchHandler, false);
+document.getElementById("tapBack").addEventListener("touchmove", touchHandler, false);
+document.getElementById("tapBack").addEventListener("touchend", touchHandler, false);
+
+var pressIndex = 0;
+function touchHandler(e) {
+
+  if (e.type == "touchstart") {
+    console.log("You touched the screen!");
+	$("#tapBack").fadeOut();
+    // document.getElementById("back").innerHTML = "Hello there!";
+	dScreen.update({
+		screenState:1,
+		state:0,
+	})
+  } else if (e.type == "touchmove") {
+	$("#tapBack").fadeOut()
+    // document.getElementById("back").innerHTML = "Hello there!";
+    console.log("You moved your finger!");
+	dScreen.update({
+		screenState:1,
+		state:0
+	})
+  } else if (e.type == "touchend" || e.type == "touchcancel") {
+	$("#tapBack").fadeOut()
+    // document.getElementById("back").innerHTML = "Hello there!";
+    console.log("You removed your finger from the screen!");
+    pressIndex++;
+	dScreen.update({
+		screenState:1,
+		state:0,
+		presses:pressIndex
+	})  
+  }
+}
+var stateChanged = false;
+
+	//only live in the file related to this screen
+
+	//whenever there is an update to the child
+	//thing inside function is fired
+	dScreen.on('child_changed',function(snapshot) {
+		if(snapshot.key=="screenState"){
+			console.log("not this")
+		}
+		if(snapshot.key=="state"){
+			console.log("yes this")
+			index = snapshot.val();
+			stateChanged = true;
+		}
+	if(stateChanged){
+		console.log("index");
+		// console.log(snapshot);
+
+		console.log(index);
+		if(index>11){ //RESET
+			// index = -1;
+			stateChanged = false;
+			dScreen.update({
+				screenState:0,
+				state:index
+			})
+			// if(index==-1){
+				console.log("show buttons again")
+				$("#tapBack").fadeIn()	
+			// }
+		}
+		// if(index==0){
+		// }
+		if(index<11){
+				$("#tapBack").fadeOut()	
+	    	// document.getElementById("demo").innerHTML = arrayWords[index];
+		}
+
+		//THIS SECTION IS FOR THE TIMERS
+		//add timers
+		//style
+		var totalTime = 0;
+		if(index==2){
+			$("#leapGif").fadeIn();
+			// totalTime = 10;
+			// circle1.style.webkitAnimationPlayState = "running";
+			// interval = setInterval(myTimer, 1000);
+		}
+		if(index==3){
+			$("#leapGif").fadeOut();
+			// totalTime = 20; //how much time it will run
+			// circle2.style.webkitAnimationPlayState = "running";
+			// interval = setInterval(myTimer, 1000);
+		}
+		// var min;
+		// var sec;
+		// function myTimer(){
+		// 	min = Math.floor(totalTime/60);
+		// 	sec = totalTime - min*60;
+		// 	totalTime--;
+		// 	var finalTime = str_pad_left(min,'0',2)+':'+str_pad_left(sec,'0',2);
+
+		// 	// console.log(totalTime);
+		// 	document.getElementById("time").innerHTML = finalTime;
+		// 	if(totalTime<0){
+		// 		clearInterval(interval);
+		// 		if(index==2){
+		// 			circle1.remove();
+		// 		}
+		// 		if(index==3){
+		// 			circle2.remove();
+		// 		}
+		// 	}
+		// }
+
+		// function str_pad_left(string,pad,length) {
+		//    return (new Array(length+1).join(pad)+string).slice(-length);
+		// }
+	}
+	});
+});
+
+</script>
+</html>
