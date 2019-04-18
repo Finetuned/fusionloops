@@ -66,14 +66,14 @@ var setWidth = window.innerWidth;
     };
 
 function startIntro() {
-        var preAIid = [330484088];
-        var newVid = "#vid1";
+        var preAIid = [330484088]; 
+        var newVid = "#vid0";
         $(newVid).show();
 
         options.id = preAIid[0]; //if it is 0 or whatever - this has to be about the path
         console.log("AI pov")
-        var whatVid = 'vid1';
-        var playThis = 'player1';
+        var whatVid = 'vid0';
+        var playThis = 'player0';
 
         playThis = new Vimeo.Player(whatVid, options);
         playThis.setVolume(1);
@@ -84,7 +84,7 @@ function startIntro() {
         }); 
         playThis.on('ended', function(data) {
             console.log("video done")
-            var oldVid = "#vid1";
+            var oldVid = "#vid0";
             $(oldVid).hide();
             //AND START THE NEXT MISSION
             isIntroOver = true;
@@ -96,7 +96,8 @@ function startIntro() {
             
             answerNum = -1;
             dataToPath(answerNum);
-            
+            myStartFunction(pathNum);
+
             stateChanged = true;
         })
 }
@@ -155,6 +156,7 @@ function startMain(pressIndex) {
     wave(pressIndex);
 
     function wave(pressIndex) {
+        console.log("wave");
         // var context = new AudioContext();
         // Setup all nodes
         var wavesurfer = WaveSurfer.create({
@@ -173,15 +175,23 @@ function startMain(pressIndex) {
         //THIS DECIDES WHAT VISUALS AND WORDS SHOULD BE SHOWN DEPENDING ON THE MISSION YOU WENT ON
         var fusionPaths = firebase.database().ref('/fusionPaths');
         var pathIndex;
+        var runVidOnce = true;
         //whenever there is an update to the child
         //thing inside function is fired
-        fusionPaths.on('child_changed', function(snapshot) {
-            console.log("fusion paths changed in mainjs")
-            console.log(snapshot.key); //"path present"
-            activePath = snapshot.val(); //the value of the path
-            changeImgs(activePath);
-            console.log(activePath);
-        });
+        if(runVidOnce){
+            fusionPaths.on('child_changed', function(snapshot) {
+                console.log("fusion paths changed in mainjs")
+                console.log(snapshot.key); //"path present"
+                if(snapshot.key=="pathPresent" && runVidOnce==true){
+                    activePath = snapshot.val(); //the value of the path
+                    runVidOnce = false;
+
+                    changeImgs(activePath);
+                    console.log(activePath);
+                }
+            }); 
+        }else{ console.log("cannot because run vid once is "+runVidOnce)}
+
 
         var m2pov1 = ["green green", "brown brown", "black"]
         var m2pov2 = ["greeeeeeeeen", "broooooooown", "blaaaaaaaack"]
@@ -191,26 +201,19 @@ function startMain(pressIndex) {
         var m3pov3 = ["twinkling stars", "ugh not happy", "lucifer and hell is good to me"]
         var possPaths2 = [-11, -12, -13];
         var possPaths3 = [-111, -112, -113, -121, -122, -123, -131, -132, -133];
-        var possPaths3 = [-1111, -1112, -1113, -1121, -1122, -1123, -1131, -1132, -1133];
+        var possPaths4 = [-1111, -1112, -1113, -1121, -1122, -1123, -1131, -1132, -1133];
 
-        var m1AIids = [330484088, 330484118, 330484145];
-        var m2AIids = [330484088, 330484118, 330484145,330484088, 330484118, 330484145,330484088, 330484118, 330484145];
-        var m3AIids = [330484088, 330484118, 330484145,330484088, 330484118, 330484145,330484088, 330484118, 330484145,330484088, 330484118, 330484145,330484088, 330484118, 330484145,330484088, 330484118, 330484145,330484088, 330484118, 330484145];
+        var m1AIids = [330484239, 330484118, 330484145];
+        var m2AIids = [330484220, 330484302, 330484340];
+        var m3AIids = [331058956, 331058921, 331058416];
 
         function changeImgs(activePath) {
-            console.log("change imgs")
-            if (activePath.toString().length == 2) {
-                //show first 3 portraits EVER
-                // aiUpdate0();
-                //on end, we are ready for mission to start
-
-                //updateImgsM1(); //this should show the first series of images
-            }
+            console.log("depending on mission, change imgs")
             if (activePath.toString().length == 3) {
-                // aiUpdate1();
+                console.log(activePath + " we took this choice"); //from mission two
+                aiUpdate1();
                 //after
                 // updateImgsM2(); // this should also make their display to none
-                console.log(activePath + "hi"); //from mission two
             }
             if (activePath.toString().length == 4) { //from mission three
                 //this depends on their decision
@@ -226,14 +229,16 @@ function startMain(pressIndex) {
             } 
             else {}
         }
+        // var newVid = "#vid1";
         function whichVids(mission, pathIndex){
-            console.log("yup")
-            var newVid = "#vid1";
+            console.log("which vid to choose?")
+            var newVid = "#vid"+mission;
             $(newVid).show();
             if(mission==1){ //if we are in mission 3
-                console.log("inside"+mission);
+                console.log("inside"+mission+"this video index"+pathIndex);
                 options.id = m1AIids[pathIndex]; //if it is 0 or whatever - this has to be about the path
-                playIt();
+                $('#vid1').show();
+                playIt(mission);
             }
             if(mission==2){ //if we are in mission 3
                 console.log("inside"+mission);
@@ -247,44 +252,46 @@ function startMain(pressIndex) {
             }
         }
         // var player1, player2, player3;
-        function playIt(){
+        function playIt(mission){
             console.log("AI pov")
-            var whatVid = 'vid1';
-            var playThis = 'player1';
+            var whatVid = 'vid'+mission;
+            var playThis = 'player'+mission;
 
             playThis = new Vimeo.Player(whatVid, options);
             playThis.setVolume(1);
-            console.log("playing AI")
+            console.log("playing AI for mission"+mission)
 
             playThis.on('play', function() {
                 console.log('played the video!');
             }); 
             playThis.on('ended', function(data) {
                 console.log("video done")
-                var oldVid = "#vid1";
+                var oldVid = "#vid"+mission;
                 $(oldVid).hide();
                 //AND START THE NEXT MISSION
+                myStartFunction(pathNum);
+                //and tell dScreen button that it should go back
+                dScreen.update({
+                    state: 13
+                })
             })
         }
         var thisPath;
-        function aiUpdate0(){
-            console.log("starting");
-            //just one option
-            whichVids(0, activePath)
-        }
         function aiUpdate1(){
-            console.log("AI1");
+            console.log("in AI1");
             if (activePath == possPaths2[0]) {
                 thisPath = 0;
+                whichVids(1, thisPath);
             }
             if (activePath == possPaths2[1]) {
                 thisPath = 1;
+                whichVids(1, thisPath);
             }
             if (activePath == possPaths2[2]) {
                 thisPath = 2;
+                whichVids(1, thisPath);
             }
             //just one option
-            whichVids(1, thisPath)
         }
         function aiUpdate2(){
             console.log("AI2");
@@ -368,7 +375,6 @@ function startMain(pressIndex) {
         }
 
 
-        // one();
         //if something about the button has happened and we are on that mission
         //start the one
         console.log(pressIndex+"pressIndex")
@@ -594,9 +600,18 @@ function startMain(pressIndex) {
                                         dScreen.update({
                                             state: index
                                         })
+
+                                        //logic so AI videos aren't triggered twice
+                                        // var runVidOnce = true;
+
+                                        //send the answer to the database so we can add it to the path
                                         answerNum = 1;
                                         dataToPath(answerNum);
-                                        document.getElementById("instrux").innerHTML = arrayWords[index];
+
+                                        //update the text on the screen
+                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
+
+
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
                                             answer = "Got it, Option Ay";
@@ -625,7 +640,7 @@ function startMain(pressIndex) {
                                         })
                                         answerNum = 2;
                                         dataToPath(answerNum);
-                                        document.getElementById("instrux").innerHTML = arrayWords[index];
+                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
 
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
@@ -653,7 +668,7 @@ function startMain(pressIndex) {
                                         })
                                         answerNum = 3;
                                         dataToPath(answerNum);
-                                        document.getElementById("instrux").innerHTML = arrayWords[index];
+                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
 
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {

@@ -8,13 +8,9 @@ var pathNum = -1;
 //we may need to pull pathnum from the database first
 function dataToPath(decision){
 	var decisionDB = decision.toString();
-	if(decision==-2){
-		console.log(decision)
-		pathNum = -2;
-	}
 	if(decision==-1){
 		pathNum = -1;
-		myStartFunction();
+		// myStartFunction();
 	}
 	if(decision>-1){
 		pathNum = +(pathNum+decisionDB);
@@ -34,6 +30,7 @@ fusionPaths.on('child_changed',function(snapshot) {
 	//everytime you call this you chuck it in with the timesnap
 	//only if you are done with the whole journey
 	if(snapshot.key=="pathPresent" && snapshot.val().toString().length==5){
+		console.log("whole thing over");
 		console.log(pathNum);
 		console.log(snapshot.val())
 		fusionPaths.push({
@@ -42,48 +39,51 @@ fusionPaths.on('child_changed',function(snapshot) {
 	}
 });
 
+reset();
 var index = 0;
-dScreen.update({
-    screenState: 0,
-    presses:0,
-    state: index
-})
-
-//we want to populate pov with the beginning state
 var inactive = 0;
 var active = 1;
 var p1 = inactive;
 var p2 = inactive;
 var p3 = inactive;
+function reset(){
+	//population dScreen with the beginning state
+	dScreen.update({
+	    screenState: 0,
+	    presses:0,
+	    state: 13
+	})
 
-//when program starts all pov should be inactive
-fusionPaths.update({
-	pathPresent: -1 //here we are making the path
-})
-pov.update({
-	m1:
-		{
-			pov1:0,
-			pov2:0,
-			pov3:0,
-			state:-1
-		},
-	m2:
-		{
-			pov1:0,
-			pov2:0,
-			pov3:0,
-			state:-1
-		},
-	m3:
-		{
-			pov1:0,
-			pov2:0,
-			pov3:0,
-			state:-1
-		}		
-})
+	//when program starts all pov should be inactive
+	fusionPaths.update({
+		pathPresent: -1 //here we are making the path
+	})
 
+	//we want to populate pov with the beginning state
+	pov.update({
+		m1:
+			{
+				pov1:0,
+				pov2:0,
+				pov3:0,
+				state:-1
+			},
+		m2:
+			{
+				pov1:0,
+				pov2:0,
+				pov3:0,
+				state:-1
+			},
+		m3:
+			{
+				pov1:0,
+				pov2:0,
+				pov3:0,
+				state:-1
+			}		
+	})
+}
 
 
 // //how long each mission lasts
@@ -175,9 +175,11 @@ function lightUp(mission, povLight){
 }
 
 // // waterfall effect
-fusionPaths.on('child_changed',function(snapshot) {
-	console.log(snapshot.key);
-	console.log(snapshot.val()); //now we have a path we should use in the missions and AI update and hologram
-	console.log(pathNum);
-		myStartFunction(pathNum);
-})
+// fusionPaths.on('child_changed',function(snapshot) {
+// 	console.log(snapshot.key);
+// 	console.log(snapshot.val()); //now we have a path we should use in the missions and AI update and hologram
+// 	console.log(pathNum);
+
+// this should be called after the AI update instead
+		// myStartFunction(pathNum);
+// })
