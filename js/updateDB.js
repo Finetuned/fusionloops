@@ -113,7 +113,8 @@ function lightUp(mission, povLight){
 	}
 	if(povLight>4){
 		lightIndex = 0;
-		clearInterval(lightStuffUp)
+		clearInterval(lightStuffUp);
+		goOn = true; //will this work?
 	}
 	if(povLight==1){
 		p1 = active;
@@ -183,3 +184,7 @@ function lightUp(mission, povLight){
 // this should be called after the AI update instead
 		// myStartFunction(pathNum);
 // })
+
+function goOnNextMission(){
+    myStartFunction(pathNum);
+}

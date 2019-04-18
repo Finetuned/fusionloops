@@ -77,13 +77,13 @@ function startIntro() {
 
         playThis = new Vimeo.Player(whatVid, options);
         playThis.setVolume(1);
-        console.log("playing AI")
+        console.log("playing 0 video intro")
 
         playThis.on('play', function() {
             console.log('played the video!');
         }); 
         playThis.on('ended', function(data) {
-            console.log("video done")
+            console.log("video 0 is now done at the top!")
             var oldVid = "#vid0";
             $(oldVid).hide();
             //AND START THE NEXT MISSION
@@ -102,6 +102,7 @@ function startIntro() {
         })
 }
 
+var goOn = true; //will this work?
 function startMain(pressIndex) {
     var arrayWords = [
         "Welcome!",
@@ -184,7 +185,6 @@ function startMain(pressIndex) {
                 console.log(snapshot.key); //"path present"
                 if(snapshot.key=="pathPresent" && runVidOnce==true){
                     activePath = snapshot.val(); //the value of the path
-                    runVidOnce = false;
 
                     changeImgs(activePath);
                     console.log(activePath);
@@ -208,16 +208,18 @@ function startMain(pressIndex) {
         var m3AIids = [331058956, 331058921, 331058416];
 
         function changeImgs(activePath) {
+            runVidOnce = false;
             console.log("depending on mission, change imgs")
             if (activePath.toString().length == 3) {
                 console.log(activePath + " we took this choice"); //from mission two
                 aiUpdate1();
                 //after
+                //are we ready for this step yet :)
                 // updateImgsM2(); // this should also make their display to none
             }
             if (activePath.toString().length == 4) { //from mission three
                 //this depends on their decision
-                // aiUpdate2();
+                aiUpdate2();
                 //after
                 // updateImgsM3(); // this should also make their display to none
             }
@@ -241,9 +243,10 @@ function startMain(pressIndex) {
                 playIt(mission);
             }
             if(mission==2){ //if we are in mission 3
-                console.log("inside"+mission);
+                console.log("inside"+mission+"this video index"+pathIndex);
                 options.id = m2AIids[pathIndex]; //if it is 0 or whatever - this has to be about the path
-                playIt();
+                $('#vid2').show();
+                playIt(mission);
             }
             if(mission==3){ //if we are in mission 3
                 console.log("inside"+mission);
@@ -251,6 +254,7 @@ function startMain(pressIndex) {
                 playIt();
             }
         }
+
         // var player1, player2, player3;
         function playIt(mission){
             console.log("AI pov")
@@ -269,7 +273,11 @@ function startMain(pressIndex) {
                 var oldVid = "#vid"+mission;
                 $(oldVid).hide();
                 //AND START THE NEXT MISSION
-                myStartFunction(pathNum);
+                if(goOn==true){
+                    goOnNextMission();
+                    goOn = false;
+                }
+
                 //and tell dScreen button that it should go back
                 dScreen.update({
                     state: 13
@@ -600,29 +608,26 @@ function startMain(pressIndex) {
                                         dScreen.update({
                                             state: index
                                         })
-
-                                        //logic so AI videos aren't triggered twice
-                                        // var runVidOnce = true;
-
-                                        //send the answer to the database so we can add it to the path
-                                        answerNum = 1;
-                                        dataToPath(answerNum);
-
-                                        //update the text on the screen
-                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
-
-
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
                                             answer = "Got it, Option Ay";
                                             readOutLoud(answer);
                                         }, 3000);
                                         //fade our other options
-                                        $("#image-2").fadeOut(delay * 1.2);
-                                        $("#image-3").fadeOut(delay * 1.2);
+                                        $("#image-2").fadeOut(delay);
+                                        $("#image-3").fadeOut(delay);
+                                        $("#image-1").fadeOut(delay*1.3);
                                         //Thank you decision has been registered
                                         // Add voice update here
                                         console.log("choice registered, follow the new path")
+                                        //logic so AI videos aren't triggered twice
+                                        // var runVidOnce = true;
+
+                                        //send the answer to the database so we can add it to the path
+                                        answerNum = 1;
+                                        dataToPath(answerNum);
+                                        //update the text on the screen
+                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
                                     }
                                     // Option B
                                     else if (userSaid(str, 'b')) {
@@ -692,6 +697,7 @@ function startMain(pressIndex) {
                     if (audioCtx.state === 'suspended') {
                         audioCtx.resume();
                     }
+                    console.log("speaking answer");
                     read = true;
                     var speech = new SpeechSynthesisUtterance();
                     // Set the text and voice attributes.
