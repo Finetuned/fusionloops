@@ -66,7 +66,7 @@ var setWidth = window.innerWidth;
     };
 
 function startIntro() {
-        var preAIid = [330484088]; 
+        var preAIid = [331285717]; 
         var newVid = "#vid0";
         $(newVid).show();
 
@@ -203,9 +203,9 @@ function startMain(pressIndex) {
         var possPaths3 = [-111, -112, -113, -121, -122, -123, -131, -132, -133];
         var possPaths4 = [-1111, -1112, -1113, -1121, -1122, -1123, -1131, -1132, -1133];
 
-        var m1AIids = [330484239, 330484118, 330484145];
-        var m2AIids = [330484220, 330484302, 330484340];
-        var m3AIids = [331058956, 331058921, 331058416];
+        var m1AIids = [331279252, 331279550, 331279550];
+        var m2AIids = [331279865, 331280456, 331280753, 331282968, 331283705];
+        var m3AIids = [331281370, 331281947, 331282416, 331282607, 331283981, 331284331]
 
         function changeImgs(activePath) {
             runVidOnce = false;
@@ -215,19 +215,19 @@ function startMain(pressIndex) {
                 aiUpdate1();
                 //after
                 //are we ready for this step yet :)
-                // updateImgsM2(); // this should also make their display to none
+                updateImgsM2(); // this should also make their display to none
             }
             if (activePath.toString().length == 4) { //from mission three
                 //this depends on their decision
                 aiUpdate2();
                 //after
-                // updateImgsM3(); // this should also make their display to none
+                updateImgsM3(); // this should also make their display to none
             }
             if (activePath.toString().length == 5) { //from mission three
                 //this depends on their decision
-                // aiUpdate3();
+                aiUpdate3();
                 //after
-                // updateImgsM4(); // this should also make their display to none
+                //centerpiece time
             } 
             else {}
         }
@@ -251,7 +251,8 @@ function startMain(pressIndex) {
             if(mission==3){ //if we are in mission 3
                 console.log("inside"+mission);
                 options.id = m3AIids[pathIndex]; //if it is 0 or whatever - this has to be about the path
-                playIt();
+                 $('#vid3').show();
+                playIt(mission);
             }
         }
 
@@ -393,11 +394,17 @@ function startMain(pressIndex) {
             console.log("in ONE")
             $("#imageContainer-1").fadeOut(delay2);
             $("#image-1").fadeIn(delay);
+            $("#mainPoints1").fadeIn(delay);
 
             $("#imageContainer-2").fadeOut(delay2);
             $("#image-2").fadeIn(delay * 1.1);
+            $("#mainPoints2").fadeIn(delay);
+
+
             $("#imageContainer-3").fadeOut(delay2);
             $("#image-3").fadeIn(delay * 1.2);
+            $("#mainPoints3").fadeIn(delay);
+
             //inc. index by 1 on keydown
             index++;
             console.log(index);
@@ -416,6 +423,7 @@ function startMain(pressIndex) {
             wavesurfer.on('ready', function() {
                 wavesurfer.play();
             });
+            // $('#three-container').show();
         }
         // var myTimer = setTimeout(one, timings[0]);
 
@@ -454,6 +462,9 @@ function startMain(pressIndex) {
             $("#image-1").fadeOut(delay * 1.1);
             $("#image-2").fadeOut(delay * 1.1);
             $("#image-3").fadeOut(delay * 1.1);
+            $("#mainPoints1").fadeOut(delay);
+            $("#mainPoints2").fadeOut(delay);
+            $("#mainPoints3").fadeOut(delay);
 
             // var x = document.getElementById('three-container');
             // x.style.display = "block";
@@ -508,7 +519,9 @@ function startMain(pressIndex) {
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);
             $("#image-3").fadeIn(delay * 1.3);
-            // $(".options").fadeIn(delay * 2);
+            $("#mainPoints1").fadeIn(delay);
+            $("#mainPoints2").fadeIn(delay);
+            $("#mainPoints3").fadeIn(delay);
             document.getElementById("mainPoints1").innerHTML = "Option A";
             document.getElementById("mainPoints2").innerHTML = "Option B";
             document.getElementById("mainPoints3").innerHTML = "Option C";
@@ -596,7 +609,7 @@ function startMain(pressIndex) {
                                 if (userSaid(str, 'option')) {
                                     //then listening for decision (A, B, C)
                                     if (userSaid(str, 'a')) {
-                                        $("#image-1").css("border", "5px solid #fff");
+            $("#image-1").css("border", "5px solid #fff");
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -614,9 +627,13 @@ function startMain(pressIndex) {
                                             readOutLoud(answer);
                                         }, 3000);
                                         //fade our other options
-                                        $("#image-2").fadeOut(delay);
-                                        $("#image-3").fadeOut(delay);
-                                        $("#image-1").fadeOut(delay*1.3);
+            $("#image-2").fadeOut(delay);
+            $("#image-3").fadeOut(delay);
+            $("#image-1").fadeOut(delay);
+
+            $("#mainPoints1").fadeOut(delay);
+            $("#mainPoints2").fadeOut(delay);
+            $("#mainPoints3").fadeOut(delay);
                                         //Thank you decision has been registered
                                         // Add voice update here
                                         console.log("choice registered, follow the new path")
@@ -631,7 +648,7 @@ function startMain(pressIndex) {
                                     }
                                     // Option B
                                     else if (userSaid(str, 'b')) {
-                                        $("#image-2").css("border", "5px solid #fff");
+            $("#image-2").css("border", "5px solid #fff");
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -654,13 +671,19 @@ function startMain(pressIndex) {
                                             readOutLoud(answer);
                                         }, 3000);
                                         //fade out other options
-                                        $("#image-1").fadeOut(delay * 1.2);
-                                        $("#image-3").fadeOut(delay * 1.2);
+            $("#image-1").fadeOut(delay);
+            $("#image-3").fadeOut(delay);
+            $("#image-2").fadeOut(delay);
+
+            $("#mainPoints1").fadeOut(delay);
+            $("#mainPoints2").fadeOut(delay);
+            $("#mainPoints3").fadeOut(delay);
+
                                     }
 
                                     // Option C
                                     else if (userSaid(str, 'c')) {
-                                        $("#image-3").css("border", "5px solid #fff");
+            $("#image-3").css("border", "5px solid #fff");
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -682,9 +705,13 @@ function startMain(pressIndex) {
                                             readOutLoud(answer);
                                         }, 3000);
                                         //fade out other options
-                                        $("#image-1").fadeOut(delay * 1.2);
-                                        $("#image-2").fadeOut(delay * 1.2);
+            $("#image-1").fadeOut(delay);
+            $("#image-2").fadeOut(delay);
+            $("#image-3").fadeOut(delay);
 
+            $("#mainPoints1").fadeOut(delay);
+            $("#mainPoints2").fadeOut(delay);
+            $("#mainPoints3").fadeOut(delay);
                                     } else {}
 
                                 }

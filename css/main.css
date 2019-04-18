@@ -126,8 +126,10 @@ body {
     display: none;
     position: absolute;
     width: 400px;
-    margin-left: 6%;
-    margin-top: 57%;
+    margin-left: 10%;
+    margin-top: 120%;
+/*    margin-left: 6%;
+    margin-top: 57%;*/
     color: white;
     font-family: cineLight, sans-serif;
     font-size: 24px;
@@ -136,8 +138,10 @@ body {
 #mainPoints2{
     display: none;
     width: 400px;
-    margin-left: 6%;
-    margin-top: 57%;
+    margin-left: 10%;
+    margin-top: 120%;
+/*    margin-left: 6%;
+    margin-top: 57%;*/
     color: white;
     font-family: cineLight, sans-serif;
     font-size: 24px;
@@ -146,8 +150,10 @@ body {
 #mainPoints3{
     display: none;
     width: 400px;
-    margin-left: 6%;
-    margin-top: 57%;
+    margin-left: 10%;
+    margin-top: 120%;
+/*    margin-left: 6%;
+    margin-top: 57%;*/
     color: white;
     font-family: cineLight, sans-serif;
     font-size: 24px;
