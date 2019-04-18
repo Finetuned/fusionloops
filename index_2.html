@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <script>
+    var audioCtx;
+    // window.onload = function() {
+    //   audioCtx = new AudioContext();
+    // }
+    AudioContext = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AudioContext();
+    if(audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  </script>
+
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="manifest" href="site.webmanifest"> -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<!-- Bubbles -->
+  <div class ="container">
+<!--     LEFT BUBBLE -->
+    <div class="bubble">
+      <figure id="imageContainer">
+        <img src="img/circle-blob-1.png" width="400" height="400" id="imageContainer-1">
+<!--         <figcaption id="imgTxt1">POV A</figcaption>-->  
+      </figure>
+      <figure id="imageContainer">
+        <canvas class=image id="image-1"></canvas>
+<!--         <figcaption id="imgTxt2">POV B</figcaption> -->
+<!--           <div class = "mainPoints">
+            Green is undoubtedly good.
+          </div> -->
+          <div class = "options">
+            OPTION A
+          </div>
+      </figure> 
+    </div>
+<!-- MIDDLE BUBBLE -->
+    <div class="bubble">
+      <figure id="imageContainer">
+        <img src="img/circle-blob-1.png" width="400" height="400" id="imageContainer-2">
+      </figure>
+      <figure id="imageContainer">  
+        <canvas class=image id="image-2"></canvas>
+<!--         <figcaption id="imgTxt2">POV B</figcaption> -->
+<!--           <div class = "mainPoints">
+            Let's mix things up.
+          </div> -->
+          <div class = "options">
+            OPTION B
+          </div>
+       </figure> 
+    </div>
+
+<!-- RIGHT BUBBLE -->
+    <div class="bubble">
+        <figure id="imageContainer">
+          <img src="img/circle-blob-1.png" width="400" height="400" id="imageContainer-3">
+<!--         <figcaption id="imgTxt3">POV C</figcaption> -->
+        </figure>
+        <figure id="imageContainer">  
+          <canvas class=image id="image-3"></canvas>
+<!--           <div class = "mainPoints">
+            Completely rethink energy.
+          </div> -->
+            <div class = "options">
+              OPTION C
+            </div>
+        </figure>
+    </div>
+</div>
+
+    <div class="rec-status">Recogniser status:<span id="recStatus">not recognising</span></div>
+    <button id="startRecBtn"></button>
+    <button id="stopRecBtn"></button>
+
+
+<!-- End of Bubbles -->
+    <div class = "ipad">
+      WELCOME BACK, Press 1 to Start
+      <div id="waveform"></div>
+    </div>
+
+<body>
+  <div id="three-container"></div>
+
+  <!-- this is for the threejs stuff -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leapjs/0.6.1/leap.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.min.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
+  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/bas.js'></script>
+  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/OrbitControls-2.js'></script>
+  <!--  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- wavesurfer.js -->
+  <script src="js/wavesurfer.js"></script>
+
+  <!-- microphone plugin -->
+  <!-- <script src="js/wavesurfer.microphone.min.js"></script> -->
+
+  <!--- Recorder.js -->
+  <!-- <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script> -->
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+ 
+  <script src="js/firebase.js"></script> 
+
+  <script src="js/main.js"></script>
+  <script src="js/updateDB.js"></script>
+
+  <script src="js/video-speech.js"></script>
+      <script  src="js/index.js"></script>
+
+  <script type="text/javascript">
+
+    // var setupDone = localStorage.getItem('setup');
+
+    // if (setupDone != "true") {
+    //   window.location.href = "/setup.html"
+    // } else {
+    //   next();
+    // }
+  </script>
+</body>
+
+</html>
