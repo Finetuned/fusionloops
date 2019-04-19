@@ -1,4 +1,3 @@
-// https://codepen.io/anon/pen/JVLzWR
 
 var width = 30; 
 var height = 30;
@@ -13,53 +12,19 @@ var slide4;
 var slide5;
 var slide6;
 
-var spacing = window.innerWidth/37.2;
+var spacing = window.innerWidth/37;
 var index = 0;
-console.log("variables loaded")
+console.log("hi")
 
 var theyLive = false;
 
-var controller = new Leap.Controller();
-  controller.setBackground(true); //enable
-
-//what happens with display shifting on and off for the three container
-
-//depending on path we will use img out of an array of images depending on path
-var m1pov1 = "../img/image_text.png";
-var m1pov2 = '../img/image_text.png';
-var m1pov3 = '../img/image_text.png';
-
-var m1sp1 = '../img/txt-01.png';
-var m1sp2 = '../img/txt-01.png';
-var m1sp3 = '../img/txt-01.png';
-
-var m2pov1 = "../img/pov-01.png";
-var m2pov2 = "../img/pov-02.png";
-var m2pov3 = "../img/pov-03.png";
-
-var m2sp1 = '../img/txt-02.png';
-var m2sp2 = '../img/txt-02.png';
-var m2sp3 = '../img/txt-02.png';
-
-var m3pov1imgArray = ["../img/pov-01.png", "../img/pov-02.png"]
-var m3pov2imgArray = ["../img/pov-01.png", "../img/pov-02.png"]
-var m3pov3imgArray = ["../img/pov-01.png", "../img/pov-02.png"]
-//also for sp
-var m3pov1spArray = ['../img/txt-01.png', '../img/txt-03.png']
-var m3pov2spArray = ['../img/txt-01.png', '../img/txt-03.png']
-var m3pov3spArray = ['../img/txt-01.png', '../img/txt-03.png']
-
-
 var go;
 // init();
-var isLoaded = false;
-
 window.onload = init;
 console.ward = function() {}; // what warnings?
 
 function init() {
-$('canvas').remove();
-console.log("init loaded")
+console.log("hi hi")
   root = new THREERoot({
     createCameraControls: !true,
     antialias: (window.devicePixelRatio === 1),
@@ -69,98 +34,37 @@ console.log("init loaded")
   root.renderer.setClearColor(0x000000, 0);
   root.renderer.setPixelRatio(window.devicePixelRatio || 1);
   root.camera.position.set(0, 0, 60);
-  
-  go();
-
-
+go()
 }
-
-
-function whichLeapImgs(mission, pickArray){
-
-    if (mission == 2) {
-      console.log("Mission: " + mission);
-      root.scene.remove(slide);
-      root.scene.remove(slide2);
-      root.scene.remove(slide3);
-      root.scene.remove(slide4);
-      root.scene.remove(slide5);
-      root.scene.remove(slide6);
-      //update contents of the pov bubbles
-      m1pov1 = m2pov1;
-      m1pov2 = m2pov2;
-      m1pov3 = m2pov3; 
-      //update contents of the sp bubbles
-      m1sp1 = m2sp1;
-      m1sp2 = m2sp2;
-      m1sp3 = m2sp3; 
-
-     }
-     if(mission==3) {
-      //somethinga bout pickarray to decide which images shoudl be there
-      root.scene.remove(slide)
-      root.scene.remove(slide2)
-      root.scene.remove(slide3)
-      root.scene.remove(slide4)
-      root.scene.remove(slide5)
-      root.scene.remove(slide6)
-      //update contents of the pov bubbles from array depending on pickArray
-      m1pov1 = m3pov1imgArray[pickArray]
-      m1pov2 = m3pov2imgArray[pickArray]
-      m1pov3 = m3pov3imgArray[pickArray]
-      //update contents of the sp bubbles from array depending on pickArray
-      m1sp1 = m3pov1spArray[pickArray]
-      m1sp2 = m3pov2spArray[pickArray]
-      m1sp3 = m3pov3spArray[pickArray]
-    
-      
-     }
-  }
-
-
-var bridge = document.getElementById('three-container');
-const scale = (num, in_min, in_max, out_min, out_max) => {
- return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-
 
 go = function(){
-  console.log("go");
-  tellLeapStuff();
-  isLoaded = true;
-
-  // tl = new TimelineMax({repeat:-1, repeatDelay:1.0, yoyo: false});
-  tl = new TimelineMax();
+  console.log("go")
+  tl = new TimelineMax({repeat:-1, repeatDelay:1.0, yoyo: false});
 
   slide = new Slide(width, height, 'in');
 	var l1 = new THREE.ImageLoader();
 	l1.setCrossOrigin('Anonymous');
-  //POV image
   // var thisImg = $("#imageContainer-3")
-	l1.load(m1pov1, function(img) {
+	l1.load('../img/pov-01.png', function(img) {
 	  slide.setImage(img);
 	})
   slide.position.set(-spacing,0,0)
   root.scene.add(slide);
-  //  //Super Power Text
   slide2 = new Slide(width, height, 'out');
   var l2 = new THREE.ImageLoader();
 	l2.setCrossOrigin('Anonymous');
-	l2.load(m1sp1, function(img) {
+	l2.load('../img/txt-01.png', function(img) {
 		slide2.setImage(img);
 	})
   slide2.position.set(-spacing,0,0)
   root.scene.add(slide2);
 
-
-  tl.add(slide.transition(), 0);
-  tl.add(slide2.transition(), 0);
-
+// if(portrait2==true){
+  // tl = new TimelineMax({repeat:-1, repeatDelay:1.0, yoyo: false});
   slide3 = new Slide(width, height, 'in');
   var l3 = new THREE.ImageLoader();
   l3.setCrossOrigin('Anonymous');
-  l3.load(m1pov2, function(img) {
+  l3.load('../img/pov-02.png', function(img) {
     slide3.setImage(img);
   })
   slide3.position.set(0,0,0)
@@ -168,7 +72,7 @@ go = function(){
   slide4 = new Slide(width, height, 'out');
   var l4 = new THREE.ImageLoader();
   l4.setCrossOrigin('Anonymous');
-  l4.load(m1sp2, function(img) {
+  l4.load('../img/txt-02.png', function(img) {
     slide4.setImage(img);
   })
   slide4.position.set(0,0,0)
@@ -176,12 +80,16 @@ go = function(){
 
   tl.add(slide3.transition(), 0);
   tl.add(slide4.transition(), 0);
+  // createTweenScrubber(tl);
+// }
 
+  // if(portrait3==true){
+    // tl = new TimelineMax({repeat:-1, repeatDelay:1.0, yoyo: false});
     slide5 = new Slide(width, height, 'in');
     var l5 = new THREE.ImageLoader();
     l5.setCrossOrigin('Anonymous');
 
-    l5.load(m1pov3, function(img) {
+    l5.load('../img/pov-03.png', function(img) {
       slide5.setImage(img);
     })
     slide5.position.set(spacing,0,0)
@@ -189,7 +97,7 @@ go = function(){
     slide6 = new Slide(width, height, 'out');
     var l6 = new THREE.ImageLoader();
     l6.setCrossOrigin('Anonymous');
-    l6.load(m1sp3, function(img) {
+    l6.load('../img/txt-03.png', function(img) {
       slide6.setImage(img);
     })
     slide6.position.set(spacing,0,0)
@@ -198,87 +106,14 @@ go = function(){
     tl.add(slide6.transition(), 0);
     // createTweenScrubber(tl);
   // }
+ 
+ // if(portrait1==true){
 
-  //tween the images and mesh them together
+  tl.add(slide.transition(), 0);
+  tl.add(slide2.transition(), 0);
   createTweenScrubber(tl);
 // }
 }
-
-// go2 = function(){
-//   console.log("go2")
-//   // tl = new TimelineMax({repeat:-1, repeatDelay:1.0, yoyo: false});
-//   tl = new TimelineMax();
-
-//   slide = new Slide(width, height, 'in');
-//   var l1 = new THREE.ImageLoader();
-//   l1.setCrossOrigin('Anonymous');
-//   //POV image
-//   // var thisImg = $("#imageContainer-3")
-//   l1.load(m2sp1, function(img) {
-//     slide.setImage(img);
-//   })
-//   slide.position.set(-spacing,0,0)
-//   root.scene.add(slide);
-//   //  //Super Power Text
-//   slide2 = new Slide(width, height, 'out');
-//   var l2 = new THREE.ImageLoader();
-//   l2.setCrossOrigin('Anonymous');
-//   l2.load(m2pov1, function(img) {
-//     slide2.setImage(img);
-//   })
-//   slide2.position.set(-spacing,0,0)
-//   root.scene.add(slide2);
-
-
-//   tl.add(slide.transition(), 0);
-//   tl.add(slide2.transition(), 0);
-
-//   slide3 = new Slide(width, height, 'in');
-//   var l3 = new THREE.ImageLoader();
-//   l3.setCrossOrigin('Anonymous');
-//   l3.load(m2sp2, function(img) {
-//     slide3.setImage(img);
-//   })
-//   slide3.position.set(0,0,0)
-//   root.scene.add(slide3);
-//   slide4 = new Slide(width, height, 'out');
-//   var l4 = new THREE.ImageLoader();
-//   l4.setCrossOrigin('Anonymous');
-//   l4.load(m2pov2, function(img) {
-//     slide4.setImage(img);
-//   })
-//   slide4.position.set(0,0,0)
-//   root.scene.add(slide4);
-
-//   tl.add(slide3.transition(), 0);
-//   tl.add(slide4.transition(), 0);
-
-//     slide5 = new Slide(width, height, 'in');
-//     var l5 = new THREE.ImageLoader();
-//     l5.setCrossOrigin('Anonymous');
-
-//     l5.load(m2sp3, function(img) {
-//       slide5.setImage(img);
-//     })
-//     slide5.position.set(spacing,0,0)
-//     root.scene.add(slide5);
-//     slide6 = new Slide(width, height, 'out');
-//     var l6 = new THREE.ImageLoader();
-//     l6.setCrossOrigin('Anonymous');
-//     l6.load(m2pov3, function(img) {
-//       slide6.setImage(img);
-//     })
-//     slide6.position.set(spacing,0,0)
-//     root.scene.add(slide6);
-//     tl.add(slide5.transition(), 0);
-//     tl.add(slide6.transition(), 0);
-//     // createTweenScrubber(tl);
-//   // }
-
-//   //tween the images and mesh them together
-//   createTweenScrubber(tl);
-// // }
-// }
 
 ////////////////////
 // CLASSES
@@ -612,8 +447,6 @@ var utils = {
   })()
 };
 var mouseM = false;
-
-//controls the movement from left to right of the images 
 function createTweenScrubber(tween, seekSpeed) {
   seekSpeed = seekSpeed || 0.001;
   if(mouseM==false){
@@ -634,16 +467,6 @@ function createTweenScrubber(tween, seekSpeed) {
     tween.progress(p);
   }
 
-
-function getBrushPos(xRef) {
-
-    var bridgeRect = bridge.getBoundingClientRect();
-
-    return{
-        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right),
-    }
-}  
-
   var _cx = 0;
   var _cy = 0;
   // desktop
@@ -659,10 +482,8 @@ function getBrushPos(xRef) {
         pos = frame.pointables[i].tipPosition;
         // add the position data to our data array
         data.push(pos);
-        var brushPos = getBrushPos(pos[0]);
-        // console.log(pos[0]);
         mouseM = true;
-          var cx = brushPos.x;
+          var cx = pos[0];
             var dx = cx - _cx;
             _cx = cx;
             resume();
@@ -670,10 +491,6 @@ function getBrushPos(xRef) {
             seek(dx); 
       }
     }
-
-//idea is to remove slide with POV once we are done with special power:
-//we set theyLive to true in the main.js 
-
     if(theyLive){
 root.scene.remove(slide)
 root.scene.remove(slide3)
@@ -681,16 +498,14 @@ root.scene.remove(slide5)
         seek(-37); 
         stop();
     }
-
     // if()
     // print out our position points
     // info.innerHTML = data.join(', ');
   };
   // run the animation loop with the draw command
-  Leap.loop(draw);
+  Leap.loop({enableGestures:true},draw);
 
-
-
-
+// var controller = new Leap.Controller();
+// controller.setBackground(true);
 
 }

@@ -10,7 +10,9 @@
 
 //timer delays
 // var timings = [1000, 10000, 20000, 30000, 40000, 60000];
-var timings = [1000, 4000, 7000, 10000, 13000, 16000];
+
+// var tim
+var timings = [1000, 7000, 12000, 22000, 29000, 35000];
 
 //commands for animation
 var delay = 1000;
@@ -29,6 +31,21 @@ var dScreen = firebase.database().ref('/fusionDB/dScreen');
 var pressIndex = 0; //they have never pressed the button after a mission
 //Here we check if they watched the intro
 var isIntroOver = false;
+
+
+
+var mission = 1;
+var pickArray = 1;
+// init();
+
+//this is global and ready to be called by index.js
+function tellLeapStuff(){
+   console.log('send info to leap '+mission+" this place in the array"+pickArray);
+   whichLeapImgs(mission, pickArray);
+}
+
+
+
 
 //this maybe should be tied to the end of the mission triggers
 var stateChanged = false;
@@ -69,7 +86,7 @@ var setWidth = window.innerWidth;
     };
 
 function startIntro() {
-        var preAIid = [331285717]; 
+        var preAIid = [331281597]; 
         var newVid = "#vid0";
         $(newVid).show();
 
@@ -335,17 +352,23 @@ function startMain(pressIndex) {
         function updateImgsM2(){
             //this depends on their decision
             if (activePath == possPaths2[0]) {
+mission = 2;
+pickArray = 0;
+init();
                 //img 1 in css is replaced with This
                 //index.js receives command for new image location
-                $("#image-1")[0].style.backgroundImage = 'url(img/m2/1a.jpg'; //pov1
+$('#image-1').attr('src','img/m2/1a.jpg');
                 document.getElementById("mainPoints1").innerHTML = m2pov1[0];
-                $("#image-2")[0].style.backgroundImage = 'url(img/m2/1b.jpg'; //pov2
+$('#image-2').attr('src','img/m2/1b.jpg');
                 document.getElementById("mainPoints2").innerHTML = m2pov2[0];
-                $("#image-3")[0].style.backgroundImage = 'url(img/m2/1c.jpg'; //pov3
+$('#image-3').attr('src','img/m2/1c.jpg');
                 document.getElementById("mainPoints3").innerHTML = m2pov3[0];
                 //show this
             }
             if (activePath == possPaths2[1]) {
+// mission = 2;
+// pickArray = 1;
+// init();
                 //show this
                 $("#image-1")[0].style.backgroundImage = 'url(img/m2/2a.jpg'
                 document.getElementById("mainPoints1").innerHTML = m2pov1[1];
@@ -355,6 +378,9 @@ function startMain(pressIndex) {
                 document.getElementById("mainPoints3").innerHTML = m2pov3[1];
             }
             if (activePath == possPaths2[2]) {
+// mission = 2;
+// pickArray = 2;
+// init();
                 //show this
                 $("#image-1")[0].style.backgroundImage = 'url(img/m2/3a.jpg'
                 document.getElementById("mainPoints1").innerHTML = m2pov1[2];
@@ -367,11 +393,18 @@ function startMain(pressIndex) {
 
         function updateImgsM3(){
            if (activePath == possPaths3[0] || activePath == possPaths3[1] || activePath == possPaths3[2]) {
-                $("#image-1")[0].style.backgroundImage = 'url(img/m3/1a.jpg'
+mission = 3;
+pickArray = 0;
+init();
+
+$('#image-1').attr('src','img/m3/1a.jpg');
+                // $("#image-1")[0].style.backgroundImage = 'url(img/m3/1a.jpg'
                 document.getElementById("mainPoints1").innerHTML = m3pov1[0];
-                $("#image-2")[0].style.backgroundImage = 'url(img/m3/1b.jpg'
+$('#image-2').attr('src','img/m3/1b.jpg');
+                // $("#image-2")[0].style.backgroundImage = 'url(img/m3/1b.jpg'
                 document.getElementById("mainPoints2").innerHTML = m3pov2[0];
-                $("#image-3")[0].style.backgroundImage = 'url(img/m3/1c.jpg'
+$('#image-3').attr('src','img/m3/1c.jpg');
+                // $("#image-3")[0].style.backgroundImage = 'url(img/m3/1c.jpg'
                 document.getElementById("mainPoints3").innerHTML = m3pov3[0];
             }
             if (activePath == possPaths3[3] || activePath == possPaths3[4] || activePath == possPaths3[5]) {
@@ -493,7 +526,7 @@ function startMain(pressIndex) {
             $("#mainPoints3").fadeOut(delay);
 
             //something for the three container?
-            // $("#three-container").fadeIn();
+            $("#three-container").show();
             // go();
 
             index++;
@@ -540,6 +573,9 @@ function startMain(pressIndex) {
         // PART FIVE: Discuss a Decision
 
         function five() {
+            $("#three-container").hide();
+            theyLive = false;
+            
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);
             $("#image-3").fadeIn(delay * 1.3);
