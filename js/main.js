@@ -9,11 +9,15 @@
 //global variable time = 6000...
 
 //timer delays
-var timings = [5000, 10000, 20000, 30000, 40000, 60000];
+// var timings = [1000, 10000, 20000, 30000, 40000, 60000];
+var timings = [1000, 4000, 7000, 10000, 13000, 16000];
 
 //commands for animation
-var delay = 10000;
+var delay = 1000;
 var delay2 = 5000;
+
+//pov stuff function
+var callPovStuff;
 
 //global Timer 
 
@@ -33,9 +37,6 @@ dScreen.on('child_changed', function(snapshot) {
         stateIsOn = snapshot.val();
         if (stateIsOn == 1) {
             console.log("good to go");
-            // if (audioCtx.state === 'suspended') {
-            //     audioCtx.resume();
-            // }
 
             if (isIntroOver) {
                 console.log(snapshot);
@@ -46,9 +47,11 @@ dScreen.on('child_changed', function(snapshot) {
         }
     }
     if(isIntroOver==true && snapshot.key=="presses"){
+        index = 0;
         pressIndex = snapshot.val();
         console.log(pressIndex+"press index")
         startMain(pressIndex);
+        callPovStuff();
         stateChanged = true;
     }
 })
@@ -104,15 +107,18 @@ function startIntro() {
 
 var goOn = true; //will this work?
 function startMain(pressIndex) {
-    var arrayWords = [
-        "Welcome!",
-        "This is who you heard from. Discuss what you saw. Soon you'll need to choose a path to follow.", //activate timer countdown which is 2 minutes long
-        "Scientist, please step forward + train your special power.", //activate at same time the image of training next //timer counts down
-        "System trained, activate now.", //3 second delay before leap motion and image processing start
-        "Please discuss what you have revealed.", //timer - 
-        "Scientist, please choose the path to follow by saying out loud the number of the path.", //trigger from voice recognition 
-        "Thank you, your choice has been registered. Please follow the new path." //timer until mission 2 starts
-    ]
+    var arrayWords = ["Welcome Back! Discuss what you saw","Practice your special power","Use your special power!",
+"Discuss what you revealed","Get ready to choose","Say your choice loudly: Option ___","Got it. Follow your new future path..."]
+    //     "Welcome back!",
+    //     "This is who you heard from. Discuss what you saw. Soon you'll need to choose a path to follow.", //activate timer countdown which is 2 minutes long
+    //     "Scientist, please step forward + train your special power.", //activate at same time the image of training next //timer counts down
+    //     "System trained, activate now.", //3 second delay before leap motion and image processing start
+    //     "Please discuss what you have revealed.", //timer - 
+    //     "Scientist, please choose the path to follow by saying out loud the number of the path.", //trigger from voice recognition 
+    //     "Thank you, your choice has been registered. Please follow the new path." //timer until mission 2 starts
+    // ]
+
+
     //for the timer circle when ready
     // interval = null;
     // var circle1 = document.getElementById("circle1")
@@ -212,6 +218,7 @@ function startMain(pressIndex) {
             console.log("depending on mission, change imgs")
             if (activePath.toString().length == 3) {
                 console.log(activePath + " we took this choice"); //from mission two
+                $("#instrux").hide();
                 aiUpdate1();
                 //after
                 //are we ready for this step yet :)
@@ -219,12 +226,14 @@ function startMain(pressIndex) {
             }
             if (activePath.toString().length == 4) { //from mission three
                 //this depends on their decision
+                $("#instrux").hide();
                 aiUpdate2();
                 //after
                 updateImgsM3(); // this should also make their display to none
             }
             if (activePath.toString().length == 5) { //from mission three
                 //this depends on their decision
+                $("#instrux").hide();
                 aiUpdate3();
                 //after
                 //centerpiece time
@@ -386,24 +395,45 @@ function startMain(pressIndex) {
 
         //if something about the button has happened and we are on that mission
         //start the one
-        console.log(pressIndex+"pressIndex")
-        if(pressIndex>1){
-            var myTimer = setTimeout(one, timings[0]);
+        //but then we will always be there, running it
+        //so... 
+
+
+         callPovStuff = function(){
+            dScreen.update({
+                state:0
+            })
+            // console.log(newState);
+            console.log(pressIndex+"in pov start");
+            // if(pressIndex==newState){
+                var myTimer = setTimeout(one, timings[0]);
+                var myTimer = setTimeout(two, timings[1]);
+                var myTimer = setTimeout(three, timings[2]);
+                var myTimer = setTimeout(four, timings[3]);
+                var myTimer = setTimeout(five, timings[4]);
+                var myTimer = setTimeout(six, timings[5]);
+            // } 
         }
+
+
         function one() {
             console.log("in ONE")
-            $("#imageContainer-1").fadeOut(delay2);
-            $("#image-1").fadeIn(delay);
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
+            $("#imageContainer-1").fadeOut(delay);
+            $("#image-1").fadeIn(delay*1.1);
             $("#mainPoints1").fadeIn(delay);
 
-            $("#imageContainer-2").fadeOut(delay2);
+            $("#imageContainer-2").fadeOut(delay);
             $("#image-2").fadeIn(delay * 1.1);
             $("#mainPoints2").fadeIn(delay);
 
 
-            $("#imageContainer-3").fadeOut(delay2);
-            $("#image-3").fadeIn(delay * 1.2);
+            $("#imageContainer-3").fadeOut(delay);
+            $("#image-3").fadeIn(delay * 1.1);
             $("#mainPoints3").fadeIn(delay);
+
+            $("#instrux").show(); //should there  be a fade delay
 
             //inc. index by 1 on keydown
             index++;
@@ -412,20 +442,18 @@ function startMain(pressIndex) {
             dScreen.update({
                 state: index
             })
-            document.getElementById("instrux").innerHTML = arrayWords[index];
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
             //Load Audio 
             wavesurfer.load('audio/Fusion_1.mp3');
             //voice talking "This is who you heard from, you have two minutes to discuss"
-            console.log("playing audio: Welcome Back from Mission")
-            wavesurfer.on('ready', function() {
-                wavesurfer.play();
-            });
+            console.log("one: welcome back: images from mission")
+            // wavesurfer.on('ready', function() {
+            //     wavesurfer.play();
+            // });
             // $('#three-container').show();
         }
-        // var myTimer = setTimeout(one, timings[0]);
 
 
 
@@ -444,13 +472,11 @@ function startMain(pressIndex) {
             }
             //Load Audio 
             wavesurfer.load('audio/2a-Train-Power.mp3');
-            //voice talking "This is who you heard from, you have two minutes to discuss"
-            console.log("Train Special Powers");
-            wavesurfer.on('ready', function() {
-                wavesurfer.play();
-            });
+            console.log("two: practice special power")
+            // wavesurfer.on('ready', function() {
+            //     wavesurfer.play();
+            // });
         }
-        // var myTimer = setTimeout(two, timings[1]);
 
 
 
@@ -466,31 +492,30 @@ function startMain(pressIndex) {
             $("#mainPoints2").fadeOut(delay);
             $("#mainPoints3").fadeOut(delay);
 
-            // var x = document.getElementById('three-container');
-            // x.style.display = "block";
+            //something for the three container?
+            // $("#three-container").fadeIn();
+            // go();
 
-            $("#three-container").fadeIn();
-            go();
             index++;
             //we want to populate dscreen with a new state
             dScreen.update({
                 state: index
             })
+
             document.getElementById("instrux").innerHTML = arrayWords[index];
+            
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-            // load special power visualization
-            // JS app1.js app2.js app3.js
+
             // audio instruction: special power
             wavesurfer.load('audio/Fusion_2._Special_Power.mp3');
             //voice talking
-            console.log("Playing audio: Use your Special Power")
-            wavesurfer.on('ready', function() {
-                wavesurfer.play();
-            });
+            console.log("three: reveal hidden information")
+            // wavesurfer.on('ready', function() {
+            //     wavesurfer.play();
+            // });
         }
-        // var myTimer = setTimeout(three, timings[2]);
 
 
         //PART FOUR: Discuss What has been revealed
@@ -504,13 +529,12 @@ function startMain(pressIndex) {
             })
             document.getElementById("instrux").innerHTML = arrayWords[index];
 
-            console.log("Please Discuss What You have Revealed");
+            console.log("four: discuss what you revealed")
             // wavesurfer.load('audio/4-Revealed.mp3');
             // wavesurfer.on('ready', function() {
             //     wavesurfer.play();
             // });
         }
-        // var myTimer = setTimeout(four, timings[3]);
 
 
         // PART FIVE: Discuss a Decision
@@ -536,28 +560,29 @@ function startMain(pressIndex) {
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-            console.log("You now have one minute to decide which POV to follow");
+            console.log("five: get ready to decide")
             // ask players to make a decision
             wavesurfer.load('audio/decide.mp3');
-            wavesurfer.on('ready', function() {
-                wavesurfer.play();
-            });
+            // wavesurfer.on('ready', function() {
+            //     wavesurfer.play();
+            // });
 
             // var x = document.getElementById('three-container');
-            $("#three-container").fadeOut(delay * 1.1);
+            // $("#three-container").fadeOut(delay * 1.1);
             // x.style.opacity = .1;
         }
-        // var myTimer = setTimeout(five, timings[4]);
 
 
         // PART SIX: Provide a Decision
         function six() {
+            console.log("six: say your choice")
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
             answerNum = 0;
             // if(audioCtx.state === 'suspended') {
             //   audioCtx.resume();
             // }
-            // var x = document.getElementById('three-container');
-            // x.style.display = "none";
+
             // Define a new speech recognition instance
             var rec = null;
             try {
@@ -621,6 +646,9 @@ function startMain(pressIndex) {
                                         dScreen.update({
                                             state: index
                                         })
+            console.log("seven: choice registered, follow the new path")
+            document.getElementById("instrux").innerHTML = arrayWords[index]; //may need to be specifically "A" and so on
+
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
                                             answer = "Got it, Option Ay";
@@ -636,7 +664,6 @@ function startMain(pressIndex) {
             $("#mainPoints3").fadeOut(delay);
                                         //Thank you decision has been registered
                                         // Add voice update here
-                                        console.log("choice registered, follow the new path")
                                         //logic so AI videos aren't triggered twice
                                         // var runVidOnce = true;
 
@@ -660,6 +687,9 @@ function startMain(pressIndex) {
                                         dScreen.update({
                                             state: index
                                         })
+            console.log("seven: choice registered, follow the new path")
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
                                         answerNum = 2;
                                         dataToPath(answerNum);
                                         // document.getElementById("instrux").innerHTML = arrayWords[index];
@@ -694,6 +724,9 @@ function startMain(pressIndex) {
                                         dScreen.update({
                                             state: index
                                         })
+            console.log("seven: choice registered, follow the new path")
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
                                         answerNum = 3;
                                         dataToPath(answerNum);
                                         // document.getElementById("instrux").innerHTML = arrayWords[index];
@@ -750,7 +783,6 @@ function startMain(pressIndex) {
                 stopRecBtn.addEventListener('click', stopRec, false);
             }
         };
-        // var myTimer = setTimeout(six, timings[5]);
 
 
         //////////////////////////

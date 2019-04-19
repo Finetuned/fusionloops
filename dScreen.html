@@ -110,71 +110,33 @@ var stateChanged = false;
 			index = snapshot.val();
 			stateChanged = true;
 		}
-	if(stateChanged){
-		console.log("index");
-		// console.log(snapshot);
+		if(stateChanged){
+			console.log("index"+index);
 
-		console.log(index);
-		if(index>11){ //RESET
-			// index = -1;
-			stateChanged = false;
-			dScreen.update({
-				screenState:0,
-				state:index
-			})
-			// if(index==-1){
+			if(index>11){ //RESET
+				stateChanged = false;
+				dScreen.update({
+					screenState:0,
+					// state:index
+				})
 				console.log("show buttons again")
 				$("#tapBack").fadeIn()	
-			// }
-		}
-		// if(index==0){
-		// }
-		if(index<11){
+			}
+			if(index<11){
 				$("#tapBack").fadeOut()	
-	    	// document.getElementById("demo").innerHTML = arrayWords[index];
-		}
+			}
 
-		//THIS SECTION IS FOR THE TIMERS
-		//add timers
-		//style
-		var totalTime = 0;
-		if(index==2){
-			// $("#leapGif").fadeIn();
-			// totalTime = 10;
-			// circle1.style.webkitAnimationPlayState = "running";
-			// interval = setInterval(myTimer, 1000);
+			//THIS SECTION IS FOR THE TIMERS
+			//add timers
+			//style
+			var totalTime = 0;
+			if(index==2){
+				$("#leapGif").fadeIn();
+			}
+			if(index==3){
+				$("#leapGif").fadeOut();
+			}
 		}
-		if(index==3){
-			// $("#leapGif").fadeOut();
-			// totalTime = 20; //how much time it will run
-			// circle2.style.webkitAnimationPlayState = "running";
-			// interval = setInterval(myTimer, 1000);
-		}
-		// var min;
-		// var sec;
-		// function myTimer(){
-		// 	min = Math.floor(totalTime/60);
-		// 	sec = totalTime - min*60;
-		// 	totalTime--;
-		// 	var finalTime = str_pad_left(min,'0',2)+':'+str_pad_left(sec,'0',2);
-
-		// 	// console.log(totalTime);
-		// 	document.getElementById("time").innerHTML = finalTime;
-		// 	if(totalTime<0){
-		// 		clearInterval(interval);
-		// 		if(index==2){
-		// 			circle1.remove();
-		// 		}
-		// 		if(index==3){
-		// 			circle2.remove();
-		// 		}
-		// 	}
-		// }
-
-		// function str_pad_left(string,pad,length) {
-		//    return (new Array(length+1).join(pad)+string).slice(-length);
-		// }
-	}
 	});
 });
 

@@ -175,8 +175,11 @@ body {
   display:none;
     float: left;
     width: 400px;
+/*for when we are ready for full screen
     margin-left: 30%;
-    margin-top: 7%;
+    margin-top: 7%;*/
+        margin-left: 24%;
+    margin-top: 26%;
     color: white;
     font-family: cineLight, sans-serif;
     font-size: 24px;
