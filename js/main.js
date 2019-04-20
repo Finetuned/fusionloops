@@ -86,7 +86,7 @@ var setWidth = window.innerWidth;
     };
 
 function startIntro() {
-        var preAIid = [331281597]; 
+        var preAIid = [331462301]; 
         var newVid = "#vid0";
         $(newVid).show();
 
@@ -226,9 +226,13 @@ function startMain(pressIndex) {
         var possPaths3 = [-111, -112, -113, -121, -122, -123, -131, -132, -133];
         var possPaths4 = [-1111, -1112, -1113, -1121, -1122, -1123, -1131, -1132, -1133];
 
-        var m1AIids = [331279252, 331279550, 331279550];
-        var m2AIids = [331279865, 331280456, 331280753, 331282968, 331283705];
-        var m3AIids = [331281370, 331281947, 331282416, 331282607, 331283981, 331284331]
+        var m1AIids = [331462487, 331464163, 331465412];
+
+        //Upd1-3. upd2-1. upd3-1
+        var m2AIids = [331463703, 331465258, 331468258];
+        
+        //upd2-2, upd2-3, upd3-2, upd3-3
+        var m3AIids = [331466302, 331467347, 331469268, 331470110];
 
         function changeImgs(activePath) {
             runVidOnce = false;
