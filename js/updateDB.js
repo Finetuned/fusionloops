@@ -92,7 +92,7 @@ var start = true;
 var lightMission;
 
 var lightStuffUp;
-var lengthPovTime = 3000; //this is just for the LEDs to know how long they should wait until they light up the next POV
+var lengthPovTime = 9000; //this is just for the LEDs to know how long they should wait until they light up the next POV
 
 //MAYBE SHOULDN'T HAVE THIS YET
 function myStartFunction(pathNum){
