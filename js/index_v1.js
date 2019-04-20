@@ -30,8 +30,8 @@ var m1pov2 = '../img/M_1_POV_2.png';
 var m1pov3 = '../img/M_1_POV_3.png';
 //M1 SP TEXT
 var m1sp1 = '../img/SP_POW_POV_1.png';
-var m1sp2 = '../img/SP_POW_POV_1.png';
-var m1sp3 = '../img/SP_POW_POV_1.png';
+var m1sp2 = '../img/SP_POW_POV_2.png';
+var m1sp3 = '../img/SP_POW_POV_3.png';
 //MISSION 2
 //M2 SP VISUALS
 var m2pov1 = "../img/M_2_POV_1.png";
