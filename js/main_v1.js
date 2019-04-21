@@ -234,7 +234,7 @@ function startMain(pressIndex) {
 
         //all good vimeo ids - checked
         //make the 0th element in here the game over - done
-        var m2AIids = [331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110]; 
+        var m2AIids = [331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110, 331470110]; 
         
         //check vimeo ids
         // var m3AIids = [331543282, 331543424, ?, ?, ?, 331543945, 331544072];

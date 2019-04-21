@@ -91,12 +91,35 @@ var lightIndex = 0;
 var start = true;
 var lightMission;
 
+
 var lightStuffUp;
-var lengthPovTime = 6000; //this is just for the LEDs to know how long they should wait until they light up the next POV
+
+var lengthVid = 6000; //update these
+var lengthWalk = 2000; //update these
+
+var timeTil1Starts = 3000; //trying to start pov1 faster than the others
+var timeTil2Starts = timeTil1Starts + lengthVid + lengthWalk; //2 should start when 1 has finished
+var timeTil3Starts = timeTil2Starts + lengthVid + lengthWalk;
+var timeTil3Stops = timeTil3Starts + lengthVid + lengthWalk;
+var timeTil4Clears = timeTil3Stops + lengthWalk;
+
+// var lengthPovTime = 9000; //this is just for the LEDs to know how long they should wait until they light up the next POV
 
 //MAYBE SHOULDN'T HAVE THIS YET
 function myStartFunction(pathNum){
-	lightStuffUp= setInterval(lightMission, lengthPovTime);	
+	var lightStuffUp= setTimeout(lightMission, timeTil1Starts);	//turn on 3 secs afer i send the function
+	var lightStuffUp= setTimeout(lightMission, timeTil2Starts);	//11 secs after previous goes off
+	var lightStuffUp= setTimeout(lightMission, timeTil3Starts);	//
+	var lightStuffUp= setTimeout(lightMission, timeTil3Stops);	
+	var lightStuffUp= setTimeout(lightMission, timeTil4Clears);	
+
+	// var lightStuffUp= setTimeout(lightMission, 1000);	//turn on 3 secs afer i send the function
+	// var lightStuffUp= setTimeout(lightMission, 2000);	//11 secs after previous goes off
+	// var lightStuffUp= setTimeout(lightMission, 3000);	//
+	// var lightStuffUp= setTimeout(lightMission, 4000);	
+	// var lightStuffUp= setTimeout(lightMission, 5000);
+
+	// lightStuffUp= setInterval(lightMission, lengthPovTime);	
 }
 
 function lightMission(){
@@ -109,11 +132,11 @@ function lightUp(mission, povLight){
 	if(mission.toString().length==2 && povLight>4){
 		lightIndex = 0;
 		start = false;
-		clearInterval(lightStuffUp)
+		// clearInterval(lightStuffUp)
 	}
 	if(povLight>4){
 		lightIndex = 0;
-		clearInterval(lightStuffUp);
+		// clearInterval(lightStuffUp);
 		goOn = true; //will this work?
 	}
 	if(povLight==1){
