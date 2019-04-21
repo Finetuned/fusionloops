@@ -44,7 +44,7 @@ var m2sp2 = '../img/SP_POW_POV_1_2.png';
 var m2sp3 = '../img/SP_POW_POV_1_3.png';
 
 var m3pov1imgArray = [" ", "../img/M_3_POV_1_3_1.png", '../img/M_3_POV_2_1_1.png', '../img/M_3_POV_2_2_1.png', '../img/M_3_POV_3_1_1.png'];
-var m3pov2imgArray = [" ", "../img/M_3_POV_1_3_2.png", '../img/M_3_POV_2_1_2.png', '../img/M_3_POV_2_2_3.png', '../img/M_3_POV_3_1_2.png'];
+var m3pov2imgArray = [" ", "../img/M_3_POV_1_3_2.png", '../img/M_3_POV_2_1_2.png', '../img/M_3_POV_2_2_2.png', '../img/M_3_POV_3_1_2.png'];
 var m3pov3imgArray = [" ", "../img/M_3_POV_1_3_3.png", '../img/M_3_POV_2_1_3.png', '../img/M_3_POV_2_2_3.png', '../img/M_3_POV_3_1_3.png'];
 //also for sp
 var m3pov1spArray = ['', '../img/SP_POW_POV_1_3_1.png', '../img/SP_POW_POV_2_1_1.png','../img/SP_POW_POV_2_2_1.png', '../img/SP_POW_POV_3_1_1.png'];

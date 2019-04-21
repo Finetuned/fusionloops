@@ -228,15 +228,18 @@ function startMain(pressIndex) {
         //after M2
         var possPaths3 = [-111, -112, -113, -121, -122, -123, -131, -132, -133];
         //after M3
-        var possPaths4 = [-1111, -1112, -1113, -1121, -1122, -1123, -1131, -1132, -1133];
-//vimeo ID array for AI updates
+        var possPaths4 = [-1131, -1132, -1133, -1211, -1212, -1213, -1221, -1222, -1223, -1231, -1232, -1233, -1313, -1311, -1312, -1321, -1322, -1323, -1331, -1332, -1333];
+        //vimeo ID array for AI updates - checked
         var m1AIids = [331462487, 331464163, 331465412];
 
-        //Upd1-3. upd2-1. upd3-1
-        var m2AIids = [331463703, 331465258, 331468258];
+        //all good vimeo ids - checked
+        //make the 0th element in here the game over - done
+        var m2AIids = [331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110]; 
         
-        //upd2-2, upd2-3, upd3-2, upd3-3
-        var m3AIids = [331466302, 331467347, 331469268, 331470110];
+        //check vimeo ids
+        // var m3AIids = [331543282, 331543424, ?, ?, ?, 331543945, 331544072];
+        //filler for question marks is 331543424
+        var m3AIids = [331543282, 331543424, 331543424, 331543424, 331543424, 331543945, 331544072];
 
         function changeImgs(activePath) {
             runVidOnce = false;
@@ -251,6 +254,8 @@ function startMain(pressIndex) {
             }
             if (activePath.toString().length == 4) { //from mission three
                 //this depends on their decision
+                console.log(activePath + " we took this choice"); //from mission two
+
                 $("#instrux").hide();
                 aiUpdate2();
                 //after
@@ -289,7 +294,7 @@ function startMain(pressIndex) {
                 playIt(mission);
             }
         }
-
+        var gameOver = false;
         // var player1, player2, player3;
         function playIt(mission){
             console.log("AI pov")
@@ -308,9 +313,12 @@ function startMain(pressIndex) {
                 var oldVid = "#vid"+mission;
                 $(oldVid).hide();
                 //AND START THE NEXT MISSION
-                if(goOn==true){
+                if(goOn==true && gameOver == false){ //if we should go on the next mission
                     goOnNextMission();
                     goOn = false;
+                }
+                if(goOn==true && gameOver==true){
+                    console.log("game over")
                 }
 
                 //and tell dScreen button that it should go back
@@ -339,22 +347,48 @@ function startMain(pressIndex) {
         function aiUpdate2(){
             console.log("AI2");
             for(var i = 0; i<possPaths3.length; i++){
-                if(activePath==possPaths3[i]){
+               if (activePath == possPaths3[0] || activePath == possPaths3[1]) {
+                //activate GAME OVER AI UPDATE
+                    console.log(activePath+ " bad path! "+possPaths3[0]+" bad path! "+possPaths3[1])
+                    console.log("activate game over ai update after mission 2");
+                    gameOver = true;
+                    //that vid should be specially accessed
+                    thisPath = 0; // ai update 3 vid for game over should be at the 0th index for this ai update video array (can be same as ai update 3 vid)
+               }
+               else if(activePath==possPaths3[i]){
                     thisPath = i;
                 }
             }
             //just one option
-             whichVids(2, thisPath)
+             whichVids(2, thisPath); //then in here if it is game over we will access the 0th item which would be a game over
         }
         function aiUpdate3(){
             console.log("AI3");
             for(var i = 0; i<possPaths4.length; i++){
-                if(activePath==possPaths4[i]){
-                    thisPath = i;
+                if(activePath==possPaths4[0]||activePath==possPaths4[1]||activePath==possPaths4[2]){
+                    thisPath = 0;
+                }
+                if(activePath==possPaths4[3]||activePath==possPaths4[4]||activePath==possPaths4[5]||activePath==possPaths4[6]||activePath==possPaths4[7]||activePath==possPaths4[8]){
+                    thisPath = 1;
+                }
+                if(activePath==possPaths4[9]||activePath==possPaths4[10]){
+                    thisPath = 2;
+                }
+                if(activePath==possPaths4[11]||activePath==possPaths4[12]){
+                    thisPath = 3;
+                }
+                if(activePath==possPaths4[13]||activePath==possPaths4[14]||activePath==possPaths4[15]){
+                    thisPath = 4;
+                }
+                if(activePath==possPaths4[16]||activePath==possPaths4[17]||activePath==possPaths4[18]||activePath==possPaths4[19]){
+                    thisPath = 5;
+                }
+               if(activePath==possPaths4[20]){
+                    thisPath = 6;
                 }
             }
             //just one option
-             whichVids(3, thisPath)
+             whichVids(3, thisPath); //then in here if it is game over we will access the 0th item which would be a game over
         }
 
         function updateImgsM2(){
@@ -404,10 +438,18 @@ $('#image-3').attr('src','img/M_2_POV_3.png');
         function updateImgsM3(){
 //-111 -112            
            if (activePath == possPaths3[0] || activePath == possPaths3[1]) {
-mission = 3;
-pickArray = 0;
-init();
-
+//nothing should happen at all in threejs either
+$('#three-container').hide();
+// mission = 3;
+// pickArray = 0;
+// init();
+$('#image-1').fadeOut();
+$('#image-2').fadeOut();
+$('#image-3').fadeOut();
+$("#mainPoints1").fadeOut();
+$("#mainPoints2").fadeOut();
+$("#mainPoints3").fadeOut();
+$("#instrux").hide();
 //game over
             }
 //-113
