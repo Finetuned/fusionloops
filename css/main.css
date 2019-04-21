@@ -73,20 +73,23 @@ body {
 }
 
 
-
-#vid0{
-  display:none;
-}
-
 #vid1{
   display:none;
+  overflow-y:hidden;
 }
 #vid2{
   display:none;
+  overflow-y:hidden;
 }
 #vid3{
   display:none;
+  overflow-y:hidden;
 }
+#vid0{
+  display:none;
+  overflow-y:hidden;
+}
+
 
 
 
