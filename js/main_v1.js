@@ -27,9 +27,9 @@ var step2 = step1 + 18000; //wait an extra 6 seconds for discussion. then give a
 var step3 = step2 + 17000; //wait an extra 6 seconds for checking cards. then give a 3 sec pause then step 3 is triggered whose audio lasts 5 seconds
 var step4 = step3 + 13000; //waits an extra 5 seconds for practicing. then give a 3 sec pause then step 4 is triggered whose audio lasts 5 seconds
 var step5 = step4 + 18000; //waits an extra 10 seconds for revealing with hands time. then step5 audio lasts 5 seconds 
-var step6 = step5 + 8000; //wait an extra 5 seconds to discuss what we revealed. then 3 second pause. then step6 audio lasts 8 seconds
-var step7 = step6 + 11000; //3 sec pause. step7 audio lasts 8 seconds
-var step8 = step7 + 11000; //3 sec pause. no audio here except AI update which has timeout of 5 seconds
+var step6 = step5 + 12000; //wait an extra 5 seconds to discuss what we revealed. then 3 second pause. then step6 audio lasts 8 seconds
+var step7 = step6 + 15000; //3 sec pause. step7 audio lasts 8 seconds
+var step8 = step7 + 10000; //3 sec pause. no audio here except AI update which has timeout of 5 seconds
 var timings = [step1, step2, step3, step4, step5, step6, step7, step8]
 
 //commands for animation
@@ -511,8 +511,6 @@ function startMain(pressIndex) {
             // console.log(newState);
             console.log(pressIndex + "in pov start");
             // if(pressIndex==newState){
-                four();
-
             var myTimer = setTimeout(one, timings[0]);
             var myTimer = setTimeout(two, timings[1]);
             var myTimer = setTimeout(three, timings[2]);
@@ -567,9 +565,9 @@ function startMain(pressIndex) {
             $("#image-2").css("border", "none");
             $("#image-3").css("border", "none");
 
-            totalTime = 2000; //total time + time she takes to talk will be 120000 +
+            totalTime = 12; //total time + time she takes to talk will be 129 +
             countDownInterval = setInterval(myTimer, 1000);
-            $("#timer").fadeIn(9000); //wait until she says the thing
+            $("#timer").delay(10000).fadeIn(); //wait until she says the thing
 
             $("#instrux").show();
 
@@ -672,9 +670,9 @@ function startMain(pressIndex) {
         //PART 5: Discuss What has been revealed
         function five() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 1000; //total time + time she takes to talk will be 60000 +
+            totalTime = 9; //69 //total time + time she takes to talk 
             countDownInterval = setInterval(myTimer, 1000);
-            $("#timer").fadeIn(5000); //wait until she says the thing
+            $("#timer").delay(6000).fadeIn(); //wait until she says the thing
 
             theyLive = true;
 
@@ -699,10 +697,11 @@ function startMain(pressIndex) {
             theyLive = false;
             document.getElementById("instrux").innerHTML = arrayWords[index];
 
-            totalTime = 14000; //total time + time she takes to talk will be 60000 +
-            countDownInterval = setInterval(myTimer, 1000);
-            $("#timer").fadeIn(8000); //wait until she says the thing
-
+            setTimeout(function(){
+                $("#timer").fadeIn(); //wait until she says the thing
+                totalTime = 5; //will be 69 //total time + time she takes to talk will be 60000 +
+                countDownInterval = setInterval(myTimer, 1000);
+            },8000)
 
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);

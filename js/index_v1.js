@@ -642,7 +642,7 @@ function getBrushPos(xRef) {
     var bridgeRect = bridge.getBoundingClientRect();
 
     return{
-        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right/4),
+        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right/6),
     }
 }  
 
