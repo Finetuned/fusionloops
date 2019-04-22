@@ -228,6 +228,8 @@ function startMain(pressIndex) {
             if (activePath.toString().length == 3) {
                 console.log(activePath + " we took this choice"); //from mission two
                 $("#instrux").hide();
+                $("#timer").hide(); 
+
                 aiUpdate1();
                 //after
                 //are we ready for this step yet :)
@@ -236,8 +238,9 @@ function startMain(pressIndex) {
             if (activePath.toString().length == 4) { //from mission three
                 //this depends on their decision
                 console.log(activePath + " we took this choice"); //from mission two
-
                 $("#instrux").hide();
+                $("#timer").hide(); 
+
                 aiUpdate2();
                 //after
                 updateImgsM3(); // this should also make their display to none
@@ -245,6 +248,8 @@ function startMain(pressIndex) {
             if (activePath.toString().length == 5) { //from mission three
                 //this depends on their decision
                 $("#instrux").hide();
+                $("#timer").hide(); 
+
                 aiUpdate3();
                 //after
                 //centerpiece time
@@ -432,6 +437,8 @@ function startMain(pressIndex) {
                 $("#mainPoints2").fadeOut();
                 $("#mainPoints3").fadeOut();
                 $("#instrux").hide();
+                $("#timer").hide(); 
+
                 //game over
             }
             //-113
@@ -520,10 +527,6 @@ function startMain(pressIndex) {
         //for the timer countdown
         countDownInterval = null;
         var totalTime = 0;
-        if (index == 2) {
-            totalTime = 10;
-            countDownInterval = setInterval(myTimer, 1000);
-        }
         var min;
         var sec;
         function myTimer() {
@@ -539,10 +542,6 @@ function startMain(pressIndex) {
         function str_pad_left(string, pad, length) {
             return (new Array(length + 1).join(pad) + string).slice(-length);
         }
-
-
-
-
 
         function one() {
             console.log("in ONE")
@@ -565,8 +564,10 @@ function startMain(pressIndex) {
             $("#image-2").css("border", "none");
             $("#image-3").css("border", "none");
 
-
+            totalTime = 3;
+            countDownInterval = setInterval(myTimer, 1000);
             $("#instrux").show(); //should there  be a fade delay
+            $("#timer").show(); //should there  be a fade delay
 
             //inc. index by 1 on keydown
             index++;
@@ -591,6 +592,8 @@ function startMain(pressIndex) {
         //PART 2: CHECK WHO HAS SPECIAL POWERS
         function two() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
+            totalTime = 4;
+            countDownInterval = setInterval(myTimer, 1000);
 
             index++;
             //we want to populate dscreen with a new state
@@ -612,6 +615,8 @@ function startMain(pressIndex) {
         //PART 3: PRACTICE SPECIAL POWER
         function three() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
+            totalTime = 3;
+            countDownInterval = setInterval(myTimer, 1000);
 
             index++;
             //we want to populate dscreen with a new state
@@ -634,6 +639,8 @@ function startMain(pressIndex) {
         //PART 4: USE SPECIAL POWER
         function four() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
+            totalTime = 5;
+            countDownInterval = setInterval(myTimer, 1000);
 
             $("#image-1").fadeOut(delay);
             $("#image-2").fadeOut(delay);
@@ -665,6 +672,8 @@ function startMain(pressIndex) {
         //PART 5: Discuss What has been revealed
         function five() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
+            totalTime = 3;
+            countDownInterval = setInterval(myTimer, 1000);
 
             theyLive = true;
 
@@ -687,6 +696,8 @@ function startMain(pressIndex) {
             $("#three-container").hide();
             theyLive = false;
             document.getElementById("instrux").innerHTML = arrayWords[index];
+            totalTime = 4;
+            countDownInterval = setInterval(myTimer, 1000);
 
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);
@@ -718,7 +729,9 @@ function startMain(pressIndex) {
         // PART 7: Prep a Decision
         function seven() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-
+            totalTime = 3;
+            countDownInterval = setInterval(myTimer, 1000);
+            
             index++;
             //we want to populate dscreen with a new state
             dScreen.update({

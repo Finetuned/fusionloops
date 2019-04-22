@@ -114,8 +114,6 @@ body {
   width: 100%;
   max-width: 400px;
   height: 400px;
-  /*cursor:  crosshair;*/
-  /*cursor: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/circular-cursor.png) 53 53, crosshair;*/
 }
 
 .image img {
@@ -173,31 +171,34 @@ body {
 
 .bottomBubble {
   position: absolute;
-  margin-top: 35%;
+  margin-top: 70%;
   width: 100%;
+  font-size: 24px;
+  color: white;
+  font-family: cineLight, sans-serif;
+  text-align: center;
 }
 
 #instrux {
-  display: none;
-  float: left;
+   display: none; 
+  /* float: left; */
   width: 400px;
-  /*for when we are ready for full screen
-    margin-left: 30%;
-    margin-top: 7%;*/
   margin-left: 24%;
-  margin-top: 26%;
-  color: white;
-  font-family: cineLight, sans-serif;
-  font-size: 24px;
+  position: absolute;
+  /* margin-top: 36%; */
+  /* color: white; */
+  /* font-family: cineLight, sans-serif; */
+  /* font-size: 24px; */
   z-index: 100;
 }
 
 #timer {
-  display: none;
-  float: right;
+   display: none; 
+  /* float: right; */
+  position: absolute;
   width: 400px;
-  margin-right: 30%;
-  margin-top: 7%;
+  margin-left: 50%;
+  /* margin-top: 36%; */
   color: white;
   font-family: cineLight, sans-serif;
   font-size: 24px;
@@ -205,11 +206,6 @@ body {
 }
 
 #time {
-  color: white;
-  margin-top: 5%;
-  padding: 1%;
-  text-align: center;
-  font-size: 36px;
 }
 
 .main {
@@ -235,9 +231,6 @@ body {
 
 #image-1 {
   display: none;
-  /*background-image: url('../img/pov-01.png');*/
-  /*  background-image: -webkit-image-set(url('../img/image_text.png') 1x, url('../img/image_text.png') 2x);
-*/
   border-radius: 9999px;
   position: relative;
   width: 100%;
@@ -260,9 +253,6 @@ body {
 
 #image-2 {
   display: none;
-  /*background-image: url('../img/pov-02.png');*/
-  /*  background-image: -webkit-image-set(url('../img/image_text.png') 1x, url('../img/image_text.png') 2x);
-*/
   border-radius: 9999px;
   position: relative;
   width: 100%;
@@ -271,9 +261,6 @@ body {
 
 #image-3 {
   display: none;
-  /*background-image: url('../img/pov-03.png');*/
-  /*  background-image: -webkit-image-set(url('../img/image_text.png') 1x, url('../img/image_text.png') 2x);
-*/
   border-radius: 9999px;
   position: relative;
   width: 100%;
