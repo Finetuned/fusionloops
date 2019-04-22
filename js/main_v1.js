@@ -56,9 +56,9 @@ var pickArray = 1;
 // init();
 
 //this is global and ready to be called by index.js
-function tellLeapStuff(){
-   console.log('send info to leap '+mission+" this place in the array"+pickArray);
-   whichLeapImgs(mission, pickArray);
+function tellLeapStuff() {
+    console.log('send info to leap ' + mission + " this place in the array" + pickArray);
+    whichLeapImgs(mission, pickArray);
 }
 
 
@@ -80,10 +80,10 @@ dScreen.on('child_changed', function(snapshot) {
             // stateChanged = false;
         }
     }
-    if(isIntroOver==true && snapshot.key=="presses"){
+    if (isIntroOver == true && snapshot.key == "presses") {
         index = 0;
         pressIndex = snapshot.val();
-        console.log(pressIndex+"press index")
+        console.log(pressIndex + "press index")
         startMain(pressIndex);
         callPovStuff();
         stateChanged = true;
@@ -92,98 +92,59 @@ dScreen.on('child_changed', function(snapshot) {
 
 var options;
 var setWidth = window.innerWidth;
-    options = {
-        background: true,
-        loop: false,
-        muted: false,
-        controls: false,
-        width: setWidth,
-        playsinline: true,
-        autoplay: true
-    };
+options = {
+    background: true,
+    loop: false,
+    muted: false,
+    controls: false,
+    width: setWidth,
+    playsinline: true,
+    autoplay: true
+};
 
 function startIntro() {
-        var preAIid = [331462301]; 
-        var newVid = "#vid0";
-        $(newVid).show();
+    var preAIid = [331462301];
+    var newVid = "#vid0";
+    $(newVid).show();
 
-        options.id = preAIid[0]; //if it is 0 or whatever - this has to be about the path
-        console.log("AI pov")
-        var whatVid = 'vid0';
-        var playThis = 'player0';
+    options.id = preAIid[0]; //if it is 0 or whatever - this has to be about the path
+    console.log("AI pov")
+    var whatVid = 'vid0';
+    var playThis = 'player0';
 
-        playThis = new Vimeo.Player(whatVid, options);
-        playThis.setVolume(1);
-        console.log("playing 0 video intro")
+    playThis = new Vimeo.Player(whatVid, options);
+    playThis.setVolume(1);
+    console.log("playing 0 video intro")
 
-        playThis.on('play', function() {
-            console.log('played the video!');
-        }); 
-        playThis.on('ended', function(data) {
-            console.log("video 0 is now done at the top!")
-            var oldVid = "#vid0";
-            $(oldVid).hide();
-            //AND START THE NEXT MISSION
-            isIntroOver = true;
-            startMain(1);
-            //and change the dscreen state so that it shows the button
-            dScreen.update({
-                state:13
-            })
-            
-            answerNum = -1;
-            dataToPath(answerNum);
-            myStartFunction(pathNum);
-
-            stateChanged = true;
+    playThis.on('play', function() {
+        console.log('played the video!');
+    });
+    playThis.on('ended', function(data) {
+        console.log("video 0 is now done at the top!")
+        var oldVid = "#vid0";
+        $(oldVid).hide();
+        //AND START THE NEXT MISSION
+        isIntroOver = true;
+        startMain(1);
+        //and change the dscreen state so that it shows the button
+        dScreen.update({
+            state: 13
         })
+
+        answerNum = -1;
+        dataToPath(answerNum);
+        myStartFunction(pathNum);
+
+        stateChanged = true;
+    })
 }
 
 var goOn = true; //will this work?
 function startMain(pressIndex) {
-    var arrayWords = 
-    ["Welcome Back! Discuss what you saw","Check your cards","Practice your special power","Use your special power!",
-"Discuss what you revealed","Get ready to choose","Say your choice loudly: Option ___","Got it. Registering your decision..."]
+    var arrayWords = ["Welcome Back! Discuss what you saw", "Check your cards", "Practice your special power", "Use your special power!",
+        "Discuss what you revealed", "Get ready to choose", "Say your choice loudly: Option ___", "Got it. Registering your decision..."
+    ]
 
-
-    //for the timer circle when ready
-    // interval = null;
-    // var circle1 = document.getElementById("circle1")
-    // var circle2 = document.getElementById("circle2")
-    // var circle3 = document.getElementById("circle3")
-    // var totalTime = 0;
-    // if (index == 2) {
-    //     totalTime = 10;
-    //     circle1.style.webkitAnimationPlayState = "running";
-    //     interval = setInterval(myTimer, 1000);
-    // }
-    // if (index == 3) {
-    //     totalTime = 20; //how much time it will run
-    //     circle2.style.webkitAnimationPlayState = "running";
-    //     interval = setInterval(myTimer, 1000);
-    // }
-    // var min;
-    // var sec;
-
-    // function myTimer() {
-    //     min = Math.floor(totalTime / 60);
-    //     sec = totalTime - min * 60;
-    //     totalTime--;
-    //     var finalTime = str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2);
-    //     document.getElementById("time").innerHTML = finalTime;
-    //     if (totalTime < 0) {
-    //         clearInterval(interval);
-    //         if (index == 2) {
-    //             circle1.remove();
-    //         }
-    //         if (index == 3) {
-    //             circle2.remove();
-    //         }
-    //     }
-    // }
-    // function str_pad_left(string, pad, length) {
-    //     return (new Array(length + 1).join(pad) + string).slice(-length);
-    // }
 
     console.log("in mainjs")
 
@@ -212,27 +173,29 @@ function startMain(pressIndex) {
         var runVidOnce = true;
         //whenever there is an update to the child
         //thing inside function is fired
-        if(runVidOnce){
+        if (runVidOnce) {
             fusionPaths.on('child_changed', function(snapshot) {
                 console.log("fusion paths changed in mainjs")
                 console.log(snapshot.key); //"path present"
-                if(snapshot.key=="pathPresent" && runVidOnce==true){
+                if (snapshot.key == "pathPresent" && runVidOnce == true) {
                     activePath = snapshot.val(); //the value of the path
 
                     changeImgs(activePath);
                     console.log(activePath);
                 }
-            }); 
-        }else{ console.log("cannot because run vid once is "+runVidOnce)}
+            });
+        } else {
+            console.log("cannot because run vid once is " + runVidOnce)
+        }
 
-//array for POV Main Points:
+        //array for POV Main Points:
         var m2pov1 = ["Fast & Convenient Travel", "Fast & Convenient Travel", "Fastest Possible Travel"]
         var m2pov2 = ["Eco-Friendly Option", "Eco-Friendly Option", "Most Eco-Friendly Travel"]
         var m2pov3 = ["Travel Virtually", "Travel Virtually", "Travel Virtually"]
         var m3pov1 = ["GAME OVER", "Phosphates for food or War", "Phosphates for food or War", "Virtual Riot against Government", "Maximise Profits for Future Growth"]
         var m3pov2 = ["GAME OVER", "Virtual Riot against Government", "Bioengineered food surplus", "Bioengineered food surplus", "Earn Profits and Share Wealth"]
-        var m3pov3 = ["GAME OVER", "Negotiation for technology and migration", "Virtual Riot against Government", "Trade technology for phosphates","Cooperate and Share Technology"]
-//array for possible paths
+        var m3pov3 = ["GAME OVER", "Negotiation for technology and migration", "Virtual Riot against Government", "Trade technology for phosphates", "Cooperate and Share Technology"]
+        //array for possible paths
         //after M1
         var possPaths2 = [-11, -12, -13];
         //after M2
@@ -244,8 +207,8 @@ function startMain(pressIndex) {
 
         //all good vimeo ids - checked
         //make the 0th element in here the game over - done
-        var m2AIids = [331462928, 331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110]; 
-        
+        var m2AIids = [331462928, 331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110];
+
         //check vimeo ids
         // var m3AIids = [331543282, 331543424, ?, ?, ?, 331543945, 331544072];
         //filler for question marks is 331543424
@@ -285,57 +248,56 @@ function startMain(pressIndex) {
                 aiUpdate3();
                 //after
                 //centerpiece time
-            } 
-            else {}
+            } else {}
         }
         // var newVid = "#vid1";
-        function whichVids(mission, pathIndex){
+        function whichVids(mission, pathIndex) {
             console.log("which vid to choose?")
-            var newVid = "#vid"+mission;
+            var newVid = "#vid" + mission;
             $(newVid).show();
-            if(mission==1){ //if we are in mission 3
-                console.log("inside"+mission+"this video index"+pathIndex);
+            if (mission == 1) { //if we are in mission 3
+                console.log("inside" + mission + "this video index" + pathIndex);
                 options.id = m1AIids[pathIndex]; //if it is 0 or whatever - this has to be about the path
                 $('#vid1').show();
                 playIt(mission);
             }
-            if(mission==2){ //if we are in mission 3
-                console.log("inside"+mission+"this video index"+pathIndex);
+            if (mission == 2) { //if we are in mission 3
+                console.log("inside" + mission + "this video index" + pathIndex);
                 options.id = m2AIids[pathIndex]; //if it is 0 or whatever - this has to be about the path
                 $('#vid2').show();
                 playIt(mission);
             }
-            if(mission==3){ //if we are in mission 3
-                console.log("inside"+mission);
+            if (mission == 3) { //if we are in mission 3
+                console.log("inside" + mission);
                 options.id = m3AIids[pathIndex]; //if it is 0 or whatever - this has to be about the path
-                 $('#vid3').show();
+                $('#vid3').show();
                 playIt(mission);
             }
         }
         var gameOver = false;
         // var player1, player2, player3;
-        function playIt(mission){
+        function playIt(mission) {
             console.log("AI pov")
-            var whatVid = 'vid'+mission;
-            var playThis = 'player'+mission;
+            var whatVid = 'vid' + mission;
+            var playThis = 'player' + mission;
 
             playThis = new Vimeo.Player(whatVid, options);
             playThis.setVolume(1);
-            console.log("playing AI for mission"+mission)
+            console.log("playing AI for mission" + mission)
 
             playThis.on('play', function() {
                 console.log('played the video!');
-            }); 
+            });
             playThis.on('ended', function(data) {
                 console.log("video done")
-                var oldVid = "#vid"+mission;
+                var oldVid = "#vid" + mission;
                 $(oldVid).hide();
                 //AND START THE NEXT MISSION
-                if(goOn==true && gameOver == false){ //if we should go on the next mission
+                if (goOn == true && gameOver == false) { //if we should go on the next mission
                     goOnNextMission();
                     goOn = false;
                 }
-                if(goOn==true && gameOver==true){
+                if (goOn == true && gameOver == true) {
                     console.log("game over")
                 }
 
@@ -346,7 +308,8 @@ function startMain(pressIndex) {
             })
         }
         var thisPath;
-        function aiUpdate1(){
+
+        function aiUpdate1() {
             console.log("in AI1");
             if (activePath == possPaths2[0]) {
                 thisPath = 0;
@@ -362,165 +325,166 @@ function startMain(pressIndex) {
             }
             //just one option
         }
-        function aiUpdate2(){
+
+        function aiUpdate2() {
             console.log("AI2");
-            for(var i = 0; i<possPaths3.length; i++){
-               if (activePath == possPaths3[0] || activePath == possPaths3[1]) {
-                //activate GAME OVER AI UPDATE
-                    console.log(activePath+ " bad path! "+possPaths3[0]+" bad path! "+possPaths3[1])
+            for (var i = 0; i < possPaths3.length; i++) {
+                if (activePath == possPaths3[0] || activePath == possPaths3[1]) {
+                    //activate GAME OVER AI UPDATE
+                    console.log(activePath + " bad path! " + possPaths3[0] + " bad path! " + possPaths3[1])
                     console.log("activate game over ai update after mission 2");
                     gameOver = true;
                     //that vid should be specially accessed
                     thisPath = 0; // ai update 3 vid for game over should be at the 0th index for this ai update video array (can be same as ai update 3 vid)
-               }
-               else if(activePath==possPaths3[i]){
+                } else if (activePath == possPaths3[i]) {
                     thisPath = i;
                 }
             }
             //just one option
-             whichVids(2, thisPath); //then in here if it is game over we will access the 0th item which would be a game over
+            whichVids(2, thisPath); //then in here if it is game over we will access the 0th item which would be a game over
         }
-        function aiUpdate3(){
+
+        function aiUpdate3() {
             console.log("AI3");
-            for(var i = 0; i<possPaths4.length; i++){
-                if(activePath==possPaths4[0]||activePath==possPaths4[1]||activePath==possPaths4[2]){
+            for (var i = 0; i < possPaths4.length; i++) {
+                if (activePath == possPaths4[0] || activePath == possPaths4[1] || activePath == possPaths4[2]) {
                     thisPath = 0;
                 }
-                if(activePath==possPaths4[3]||activePath==possPaths4[4]||activePath==possPaths4[5]||activePath==possPaths4[6]||activePath==possPaths4[7]||activePath==possPaths4[8]){
+                if (activePath == possPaths4[3] || activePath == possPaths4[4] || activePath == possPaths4[5] || activePath == possPaths4[6] || activePath == possPaths4[7] || activePath == possPaths4[8]) {
                     thisPath = 1;
                 }
-                if(activePath==possPaths4[9]||activePath==possPaths4[10]){
+                if (activePath == possPaths4[9] || activePath == possPaths4[10]) {
                     thisPath = 2;
                 }
-                if(activePath==possPaths4[11]||activePath==possPaths4[12]){
+                if (activePath == possPaths4[11] || activePath == possPaths4[12]) {
                     thisPath = 3;
                 }
-                if(activePath==possPaths4[13]||activePath==possPaths4[14]||activePath==possPaths4[15]){
+                if (activePath == possPaths4[13] || activePath == possPaths4[14] || activePath == possPaths4[15]) {
                     thisPath = 4;
                 }
-                if(activePath==possPaths4[16]||activePath==possPaths4[17]||activePath==possPaths4[18]||activePath==possPaths4[19]){
+                if (activePath == possPaths4[16] || activePath == possPaths4[17] || activePath == possPaths4[18] || activePath == possPaths4[19]) {
                     thisPath = 5;
                 }
-               if(activePath==possPaths4[20]){
+                if (activePath == possPaths4[20]) {
                     thisPath = 6;
                 }
             }
             //just one option
-             whichVids(3, thisPath); //then in here if it is game over we will access the 0th item which would be a game over
+            whichVids(3, thisPath); //then in here if it is game over we will access the 0th item which would be a game over
         }
 
-        function updateImgsM2(){
+        function updateImgsM2() {
             //this depends on their decision
             if (activePath == possPaths2[0]) {
-mission = 2;
-pickArray = 0;
-init();
+                mission = 2;
+                pickArray = 0;
+                init();
                 //img 1 in css is replaced with This
                 //index.js receives command for new image location
-$('#image-1').attr('src','img/M_2_POV_1.png');
+                $('#image-1').attr('src', 'img/M_2_POV_1.png');
                 document.getElementById("mainPoints1").innerHTML = m2pov1[0];
-$('#image-2').attr('src','img/M_2_POV_2.png');
+                $('#image-2').attr('src', 'img/M_2_POV_2.png');
                 document.getElementById("mainPoints2").innerHTML = m2pov2[0];
-$('#image-3').attr('src','img/M_2_POV_3.png');
+                $('#image-3').attr('src', 'img/M_2_POV_3.png');
                 document.getElementById("mainPoints3").innerHTML = m2pov3[0];
                 //show this
             }
             if (activePath == possPaths2[1]) {
-mission = 2;
-pickArray = 1;
-init();
+                mission = 2;
+                pickArray = 1;
+                init();
                 //show this
-$('#image-1').attr('src','img/M_2_POV_1.png');
+                $('#image-1').attr('src', 'img/M_2_POV_1.png');
                 document.getElementById("mainPoints1").innerHTML = m2pov1[1];
-$('#image-2').attr('src','img/M_2_POV_2.png');
+                $('#image-2').attr('src', 'img/M_2_POV_2.png');
                 document.getElementById("mainPoints2").innerHTML = m2pov2[1];
-$('#image-3').attr('src','img/M_2_POV_3.png');
+                $('#image-3').attr('src', 'img/M_2_POV_3.png');
                 document.getElementById("mainPoints3").innerHTML = m2pov3[1];
             }
             if (activePath == possPaths2[2]) {
-mission = 2;
-pickArray = 2;
-init();
+                mission = 2;
+                pickArray = 2;
+                init();
                 //show this
-$('#image-1').attr('src','img/M_2_POV_1.png');
+                $('#image-1').attr('src', 'img/M_2_POV_1.png');
                 document.getElementById("mainPoints1").innerHTML = m2pov1[2];
-$('#image-2').attr('src','img/M_2_POV_2.png');
+                $('#image-2').attr('src', 'img/M_2_POV_2.png');
                 document.getElementById("mainPoints2").innerHTML = m2pov2[2];
-$('#image-3').attr('src','img/M_2_POV_3.png');
+                $('#image-3').attr('src', 'img/M_2_POV_3.png');
                 document.getElementById("mainPoints3").innerHTML = m2pov3[2];
             }
         }
 
-//MISSION 3
+        //MISSION 3
 
-        function updateImgsM3(){
-//-111 -112            
-           if (activePath == possPaths3[0] || activePath == possPaths3[1]) {
-//nothing should happen at all in threejs either
-$('#three-container').hide();
-// mission = 3;
-// pickArray = 0;
-// init();
-$('#image-1').fadeOut();
-$('#image-2').fadeOut();
-$('#image-3').fadeOut();
-$("#mainPoints1").fadeOut();
-$("#mainPoints2").fadeOut();
-$("#mainPoints3").fadeOut();
-$("#instrux").hide();
-//game over
+        function updateImgsM3() {
+            //-111 -112            
+            if (activePath == possPaths3[0] || activePath == possPaths3[1]) {
+                //nothing should happen at all in threejs either
+                $('#three-container').hide();
+                // mission = 3;
+                // pickArray = 0;
+                // init();
+                $('#image-1').fadeOut();
+                $('#image-2').fadeOut();
+                $('#image-3').fadeOut();
+                $("#mainPoints1").fadeOut();
+                $("#mainPoints2").fadeOut();
+                $("#mainPoints3").fadeOut();
+                $("#instrux").hide();
+                //game over
             }
-//-113
-            if (activePath == possPaths3[2]){
-mission = 3;
-pickArray = 1;
-init();
+            //-113
+            if (activePath == possPaths3[2]) {
+                mission = 3;
+                pickArray = 1;
+                init();
 
-$('#image-1').attr('src','img/M_3_POV_1_3_1.png');
+                $('#image-1').attr('src', 'img/M_3_POV_1_3_1.png');
                 document.getElementById("mainPoints1").innerHTML = m3pov1[1];
-$('#image-2').attr('src','img/M_3_POV_1_3_2.png');
+                $('#image-2').attr('src', 'img/M_3_POV_1_3_2.png');
                 document.getElementById("mainPoints2").innerHTML = m3pov2[1];
-$('#image-3').attr('src','img/M_3_POV_1_3_3.png');
+                $('#image-3').attr('src', 'img/M_3_POV_1_3_3.png');
                 document.getElementById("mainPoints3").innerHTML = m3pov3[1];
             }
-//-121
-            if (activePath == possPaths3[3]){
-mission = 3;
-pickArray = 2;
-init();
+            //-121
+            if (activePath == possPaths3[3]) {
+                mission = 3;
+                pickArray = 2;
+                init();
 
-$('#image-1').attr('src','img/M_3_POV_2_1_1.png');
+                $('#image-1').attr('src', 'img/M_3_POV_2_1_1.png');
                 document.getElementById("mainPoints1").innerHTML = m3pov1[2];
-$('#image-2').attr('src','img/M_3_POV_2_1_2.png');
+                $('#image-2').attr('src', 'img/M_3_POV_2_1_2.png');
                 document.getElementById("mainPoints2").innerHTML = m3pov2[2];
-$('#image-3').attr('src','img/M_3_POV_2_1_3.png');
+                $('#image-3').attr('src', 'img/M_3_POV_2_1_3.png');
                 document.getElementById("mainPoints3").innerHTML = m3pov3[2];
             }
 
-//-122 -123
+            //-122 -123
             if (activePath == possPaths3[4] || activePath == possPaths3[5]) {
-mission = 3;
-pickArray = 3;
-init();
+                mission = 3;
+                pickArray = 3;
+                init();
 
-$('#image-1').attr('src','img/M_3_POV_2_2_1.png');
+                $('#image-1').attr('src', 'img/M_3_POV_2_2_1.png');
                 document.getElementById("mainPoints1").innerHTML = m3pov1[3];
-$('#image-2').attr('src','img/M_3_POV_2_2_2.png');
+                $('#image-2').attr('src', 'img/M_3_POV_2_2_2.png');
                 document.getElementById("mainPoints2").innerHTML = m3pov2[3];
-$('#image-3').attr('src','img/M_3_POV_2_2_3.png');
+                $('#image-3').attr('src', 'img/M_3_POV_2_2_3.png');
                 document.getElementById("mainPoints3").innerHTML = m3pov3[3];
             }
-//-131 -132 -133
-            if (activePath == possPaths3[6] || activePath == possPaths3[7] || activePath == possPaths3[8])  {
-mission = 3;
-pickArray = 4;
-init();
+            //-131 -132 -133
+            if (activePath == possPaths3[6] || activePath == possPaths3[7] || activePath == possPaths3[8]) {
+                mission = 3;
+                pickArray = 4;
+                init();
 
-$('#image-1').attr('src','img/M_3_POV_3_1_1.png');
+                $('#image-1').attr('src', 'img/M_3_POV_3_1_1.png');
                 document.getElementById("mainPoints1").innerHTML = m3pov1[4];
-$('#image-2').attr('src','img/M_3_POV_3_1_2.png');
+                $('#image-2').attr('src', 'img/M_3_POV_3_1_2.png');
                 document.getElementById("mainPoints2").innerHTML = m3pov2[4];
-$('#image-3').attr('src','img/M_3_POV_3_1_3.png');
+                $('#image-3').attr('src', 'img/M_3_POV_3_1_3.png');
                 document.getElementById("mainPoints3").innerHTML = m3pov3[4];
             }
         }
@@ -532,12 +496,12 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
         //so... 
 
 
-         callPovStuff = function(){
+        callPovStuff = function() {
             dScreen.update({
-                state:0
+                state: 0
             })
             // console.log(newState);
-            console.log(pressIndex+"in pov start");
+            console.log(pressIndex + "in pov start");
             // if(pressIndex==newState){
             var myTimer = setTimeout(one, timings[0]);
             var myTimer = setTimeout(two, timings[1]);
@@ -552,12 +516,51 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
         }
 
 
+
+        //for the timer circle when ready
+        // interval = null;
+        // var circle1 = document.getElementById("circle1")
+        // var circle2 = document.getElementById("circle2")
+        // var circle3 = document.getElementById("circle3")
+        // var totalTime = 0;
+        // if (index == 2) {
+        //     totalTime = 10;
+        //     circle1.style.webkitAnimationPlayState = "running";
+        //     interval = setInterval(myTimer, 1000);
+        // }
+        // if (index == 3) {
+        //     totalTime = 20; //how much time it will run
+        //     circle2.style.webkitAnimationPlayState = "running";
+        //     interval = setInterval(myTimer, 1000);
+        // }
+        // var min;
+        // var sec;
+
+        // function myTimer() {
+        //     min = Math.floor(totalTime / 60);
+        //     sec = totalTime - min * 60;
+        //     totalTime--;
+        //     var finalTime = str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2);
+        //     document.getElementById("time").innerHTML = finalTime;
+        //     if (totalTime < 0) {
+        //         clearInterval(interval);
+        //         if (index == 2) {
+        //             circle1.remove();
+        //         }
+        //         if (index == 3) {
+        //             circle2.remove();
+        //         }
+        //     }
+        // }
+        // function str_pad_left(string, pad, length) {
+        //     return (new Array(length + 1).join(pad) + string).slice(-length);
+        // }
         function one() {
             console.log("in ONE")
             document.getElementById("instrux").innerHTML = arrayWords[index];
 
             $("#imageContainer-1").fadeOut(delay);
-            $("#image-1").fadeIn(delay*1.1);
+            $("#image-1").fadeIn(delay * 1.1);
             $("#mainPoints1").fadeIn(delay);
 
             $("#imageContainer-2").fadeOut(delay);
@@ -695,7 +698,7 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
             $("#three-container").hide();
             theyLive = false;
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            
+
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);
             $("#image-3").fadeIn(delay * 1.3);
@@ -724,7 +727,7 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
         }
 
         // PART 7: Prep a Decision
-        function seven(){
+        function seven() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
 
             index++;
@@ -733,8 +736,8 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                 state: index
             })
 
-            if(audioCtx.state === 'suspended') {
-              audioCtx.resume();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
             console.log("seven: state choice")
             // ask players to prepare a decision
@@ -804,9 +807,9 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                 if (userSaid(str, 'option')) {
                                     //then listening for decision (A, B, C)
                                     if (userSaid(str, 'a')) {
-            $("#image-1").css("border", "5px solid #fff");
-            console.log("eight: choice registered, follow the new path")
-            document.getElementById("instrux").innerHTML = arrayWords[index]; //may need to be specifically "A" and so on
+                                        $("#image-1").css("border", "5px solid #fff");
+                                        console.log("eight: choice registered, follow the new path")
+                                        document.getElementById("instrux").innerHTML = arrayWords[index]; //may need to be specifically "A" and so on
 
                                         console.log("border applied");
                                         rec.stop();
@@ -833,13 +836,13 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                             dataToPath(answerNum);
                                         }, aiUpdateDelay);
                                         //fade our other options
-            $("#image-2").fadeOut(delay*padDelay);
-            $("#image-3").fadeOut(delay*padDelay);
-            $("#image-1").fadeOut(delay*padDelay);
+                                        $("#image-2").fadeOut(delay * padDelay);
+                                        $("#image-3").fadeOut(delay * padDelay);
+                                        $("#image-1").fadeOut(delay * padDelay);
 
-            $("#mainPoints1").fadeOut(delay*padDelay);
-            $("#mainPoints2").fadeOut(delay*padDelay);
-            $("#mainPoints3").fadeOut(delay*padDelay);
+                                        $("#mainPoints1").fadeOut(delay * padDelay);
+                                        $("#mainPoints2").fadeOut(delay * padDelay);
+                                        $("#mainPoints3").fadeOut(delay * padDelay);
                                         //Thank you decision has been registered
                                         // Add voice update here
                                         //logic so AI videos aren't triggered twice
@@ -847,9 +850,9 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                     }
                                     // Option B
                                     else if (userSaid(str, 'b')) {
-            $("#image-2").css("border", "5px solid #fff");
-            console.log("eight: choice registered, follow the new path")
-            document.getElementById("instrux").innerHTML = arrayWords[index];
+                                        $("#image-2").css("border", "5px solid #fff");
+                                        console.log("eight: choice registered, follow the new path")
+                                        document.getElementById("instrux").innerHTML = arrayWords[index];
 
                                         console.log("border applied");
                                         rec.stop();
@@ -876,21 +879,21 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                             dataToPath(answerNum);
                                         }, aiUpdateDelay);
                                         //fade out other options
-            $("#image-1").fadeOut(delay*padDelay);
-            $("#image-3").fadeOut(delay*padDelay);
-            $("#image-2").fadeOut(delay*padDelay);
+                                        $("#image-1").fadeOut(delay * padDelay);
+                                        $("#image-3").fadeOut(delay * padDelay);
+                                        $("#image-2").fadeOut(delay * padDelay);
 
-            $("#mainPoints1").fadeOut(delay*padDelay);
-            $("#mainPoints2").fadeOut(delay*padDelay);
-            $("#mainPoints3").fadeOut(delay*padDelay);
+                                        $("#mainPoints1").fadeOut(delay * padDelay);
+                                        $("#mainPoints2").fadeOut(delay * padDelay);
+                                        $("#mainPoints3").fadeOut(delay * padDelay);
 
                                     }
 
                                     // Option C
                                     else if (userSaid(str, 'c')) {
-            $("#image-3").css("border", "5px solid #fff");
-            console.log("eight: choice registered, follow the new path")
-            document.getElementById("instrux").innerHTML = arrayWords[index];
+                                        $("#image-3").css("border", "5px solid #fff");
+                                        console.log("eight: choice registered, follow the new path")
+                                        document.getElementById("instrux").innerHTML = arrayWords[index];
 
                                         console.log("border applied");
                                         rec.stop();
@@ -916,13 +919,13 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                             dataToPath(answerNum);
                                         }, aiUpdateDelay);
                                         //fade out other options
-            $("#image-1").fadeOut(delay*padDelay);
-            $("#image-2").fadeOut(delay*padDelay);
-            $("#image-3").fadeOut(delay*padDelay);
+                                        $("#image-1").fadeOut(delay * padDelay);
+                                        $("#image-2").fadeOut(delay * padDelay);
+                                        $("#image-3").fadeOut(delay * padDelay);
 
-            $("#mainPoints1").fadeOut(delay*padDelay);
-            $("#mainPoints2").fadeOut(delay*padDelay);
-            $("#mainPoints3").fadeOut(delay*padDelay);
+                                        $("#mainPoints1").fadeOut(delay * padDelay);
+                                        $("#mainPoints2").fadeOut(delay * padDelay);
+                                        $("#mainPoints3").fadeOut(delay * padDelay);
                                     } else {}
 
                                 }
