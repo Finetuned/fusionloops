@@ -517,44 +517,33 @@ function startMain(pressIndex) {
 
 
 
-        //for the timer circle when ready
-        // interval = null;
-        // var circle1 = document.getElementById("circle1")
-        // var circle2 = document.getElementById("circle2")
-        // var circle3 = document.getElementById("circle3")
-        // var totalTime = 0;
-        // if (index == 2) {
-        //     totalTime = 10;
-        //     circle1.style.webkitAnimationPlayState = "running";
-        //     interval = setInterval(myTimer, 1000);
-        // }
-        // if (index == 3) {
-        //     totalTime = 20; //how much time it will run
-        //     circle2.style.webkitAnimationPlayState = "running";
-        //     interval = setInterval(myTimer, 1000);
-        // }
-        // var min;
-        // var sec;
+        //for the timer countdown
+        countDownInterval = null;
+        var totalTime = 0;
+        if (index == 2) {
+            totalTime = 10;
+            countDownInterval = setInterval(myTimer, 1000);
+        }
+        var min;
+        var sec;
+        function myTimer() {
+            min = Math.floor(totalTime / 60);
+            sec = totalTime - min * 60;
+            totalTime--;
+            var finalTime = str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2);
+            document.getElementById("time").innerHTML = finalTime;
+            if (totalTime < 0) {
+                clearInterval(countDownInterval);
+            }
+        }
+        function str_pad_left(string, pad, length) {
+            return (new Array(length + 1).join(pad) + string).slice(-length);
+        }
 
-        // function myTimer() {
-        //     min = Math.floor(totalTime / 60);
-        //     sec = totalTime - min * 60;
-        //     totalTime--;
-        //     var finalTime = str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2);
-        //     document.getElementById("time").innerHTML = finalTime;
-        //     if (totalTime < 0) {
-        //         clearInterval(interval);
-        //         if (index == 2) {
-        //             circle1.remove();
-        //         }
-        //         if (index == 3) {
-        //             circle2.remove();
-        //         }
-        //     }
-        // }
-        // function str_pad_left(string, pad, length) {
-        //     return (new Array(length + 1).join(pad) + string).slice(-length);
-        // }
+
+
+
+
         function one() {
             console.log("in ONE")
             document.getElementById("instrux").innerHTML = arrayWords[index];
