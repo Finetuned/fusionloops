@@ -11,12 +11,29 @@
 //timer delays
 // var timings = [1000, 10000, 20000, 30000, 40000, 60000];
 
-// var tim
-var timings = [1000, 7000, 12000, 22000, 29000, 35000];
+
+// var timings = [1000, 7000, 12000, 22000, 29000, 35000];
+
+// var step1 = 2000;
+// var step2 = step1 + 9000;
+// var step3 = step2 + 6000;
+// var step4 = step3 + 20000;
+// var step5 = step4 + 6000;
+// var step6 = step5 + 9000;
+// var step7 = step6 + 9000;
+// var step8 = step7 + 9000;
+var step1 = 2000; //audio lasts 9 seconds
+var step2 = step1 + 18000; //wait an extra 6 seconds for discussion. then give a 3 sec pause then step 2 is triggered whose audio lasts 8 seconds
+var step3 = step2 + 17000; //wait an extra 6 seconds for checking cards. then give a 3 sec pause then step 3 is triggered whose audio lasts 5 seconds
+var step4 = step3 + 13000; //waits an extra 5 seconds for practicing. then give a 3 sec pause then step 4 is triggered whose audio lasts 5 seconds
+var step5 = step4 + 18000; //waits an extra 10 seconds for revealing with hands time. then step5 audio lasts 5 seconds 
+var step6 = step5 + 8000; //wait an extra 5 seconds to discuss what we revealed. then 3 second pause. then step6 audio lasts 8 seconds
+var step7 = step6 + 11000; //3 sec pause. step7 audio lasts 8 seconds
+var step8 = step7 + 11000; //3 sec pause. no audio here except AI update which has timeout of 5 seconds
+var timings = [step1, step2, step3, step4, step5, step6, step7, step8]
 
 //commands for animation
 var delay = 1000;
-var delay2 = 5000;
 
 //pov stuff function
 var callPovStuff;
@@ -124,16 +141,9 @@ function startIntro() {
 
 var goOn = true; //will this work?
 function startMain(pressIndex) {
-    var arrayWords = ["Welcome Back! Discuss what you saw","Practice your special power","Use your special power!",
-"Discuss what you revealed","Get ready to choose","Say your choice loudly: Option ___","Got it. Follow your new future path..."]
-    //     "Welcome back!",
-    //     "This is who you heard from. Discuss what you saw. Soon you'll need to choose a path to follow.", //activate timer countdown which is 2 minutes long
-    //     "Scientist, please step forward + train your special power.", //activate at same time the image of training next //timer counts down
-    //     "System trained, activate now.", //3 second delay before leap motion and image processing start
-    //     "Please discuss what you have revealed.", //timer - 
-    //     "Scientist, please choose the path to follow by saying out loud the number of the path.", //trigger from voice recognition 
-    //     "Thank you, your choice has been registered. Please follow the new path." //timer until mission 2 starts
-    // ]
+    var arrayWords = 
+    ["Welcome Back! Discuss what you saw","Check your cards","Practice your special power","Use your special power!",
+"Discuss what you revealed","Get ready to choose","Say your choice loudly: Option ___","Got it. Registering your decision..."]
 
 
     //for the timer circle when ready
@@ -216,9 +226,9 @@ function startMain(pressIndex) {
         }else{ console.log("cannot because run vid once is "+runVidOnce)}
 
 //array for POV Main Points:
-        var m2pov1 = ["Fast & Convenient Travel", "Eco-Friendly Option", "Travel Virtually"]
-        var m2pov2 = ["Fast & Convenient Travel", "Eco-Friendly Option", "Travel Virtually"]
-        var m2pov3 = ["Fastest Possible Travel", "Most Eco-Friendly Option", "Travel Virtually"]
+        var m2pov1 = ["Fast & Convenient Travel", "Fast & Convenient Travel", "Fastest Possible Travel"]
+        var m2pov2 = ["Eco-Friendly Option", "Eco-Friendly Option", "Most Eco-Friendly Travel"]
+        var m2pov3 = ["Travel Virtually", "Travel Virtually", "Travel Virtually"]
         var m3pov1 = ["GAME OVER", "Phosphates for food or War", "Phosphates for food or War", "Virtual Riot against Government", "Maximise Profits for Future Growth"]
         var m3pov2 = ["GAME OVER", "Virtual Riot against Government", "Bioengineered food surplus", "Bioengineered food surplus", "Earn Profits and Share Wealth"]
         var m3pov3 = ["GAME OVER", "Negotiation for technology and migration", "Virtual Riot against Government", "Trade technology for phosphates","Cooperate and Share Technology"]
@@ -234,12 +244,20 @@ function startMain(pressIndex) {
 
         //all good vimeo ids - checked
         //make the 0th element in here the game over - done
-        var m2AIids = [331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110, 331470110]; 
+        var m2AIids = [331462928, 331462928, 331463703, 331465258, 331466302, 331467347, 331468258, 331469268, 331470110]; 
         
         //check vimeo ids
         // var m3AIids = [331543282, 331543424, ?, ?, ?, 331543945, 331544072];
         //filler for question marks is 331543424
-        var m3AIids = [331543282, 331543424, 331543424, 331543424, 331543424, 331543945, 331544072];
+        // -1131, -1132, -1133 = 331656545
+        // -1211, -1212, -1213, -1221, -1222, -1223 = 331656619
+        // -1231, -1232 = 331656747
+        // -1233, -1313 = 331656689
+        // -1311, -1312, -1321 = 331656820
+        // -1322 -1323, -1331, -1332 = 331656976
+        // -1333 = 331657049
+        var m3AIids = [331656545, 331656619, 331656747, 331656689, 331656820, 331656976, 331657049]
+
 
         function changeImgs(activePath) {
             runVidOnce = false;
@@ -521,12 +539,15 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
             // console.log(newState);
             console.log(pressIndex+"in pov start");
             // if(pressIndex==newState){
-                var myTimer = setTimeout(one, timings[0]);
-                var myTimer = setTimeout(two, timings[1]);
-                var myTimer = setTimeout(three, timings[2]);
-                var myTimer = setTimeout(four, timings[3]);
-                var myTimer = setTimeout(five, timings[4]);
-                var myTimer = setTimeout(six, timings[5]);
+            var myTimer = setTimeout(one, timings[0]);
+            var myTimer = setTimeout(two, timings[1]);
+            var myTimer = setTimeout(three, timings[2]);
+            var myTimer = setTimeout(four, timings[3]);
+            var myTimer = setTimeout(five, timings[4]);
+            var myTimer = setTimeout(six, timings[5]);
+            var myTimer = setTimeout(seven, timings[6]);
+            var myTimer = setTimeout(eight, timings[7]);
+
             // } 
         }
 
@@ -548,6 +569,11 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
             $("#image-3").fadeIn(delay * 1.1);
             $("#mainPoints3").fadeIn(delay);
 
+            $("#image-1").css("border", "none");
+            $("#image-2").css("border", "none");
+            $("#image-3").css("border", "none");
+
+
             $("#instrux").show(); //should there  be a fade delay
 
             //inc. index by 1 on keydown
@@ -561,55 +587,71 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                 audioCtx.resume();
             }
             //Load Audio 
-            wavesurfer.load('audio/Fusion_1.mp3');
+            wavesurfer.load('audio/1welcome_back.mp3');
             //voice talking "This is who you heard from, you have two minutes to discuss"
             console.log("one: welcome back: images from mission")
-            // wavesurfer.on('ready', function() {
-            //     wavesurfer.play();
-            // });
-            // $('#three-container').show();
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
         }
 
 
-
-
-        //PART 2: TRAIN SPECIAL POWERS
-
+        //PART 2: CHECK WHO HAS SPECIAL POWERS
         function two() {
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
             index++;
             //we want to populate dscreen with a new state
             dScreen.update({
                 state: index
             })
-            document.getElementById("instrux").innerHTML = arrayWords[index];
+
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
             //Load Audio 
-            wavesurfer.load('audio/2a-Train-Power.mp3');
-            console.log("two: practice special power")
-            // wavesurfer.on('ready', function() {
-            //     wavesurfer.play();
-            // });
+            wavesurfer.load('audio/2check_card.mp3');
+            console.log("two: check card")
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
         }
 
-
-
-        //IMPORTANT! THERE IS A KEYPRESS HERE "3" 
-
-
-        //PART 3: USE SPECIAL POWER
+        //PART 3: PRACTICE SPECIAL POWER
         function three() {
-            $("#image-1").fadeOut(delay * 1.1);
-            $("#image-2").fadeOut(delay * 1.1);
-            $("#image-3").fadeOut(delay * 1.1);
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
+            index++;
+            //we want to populate dscreen with a new state
+            dScreen.update({
+                state: index
+            })
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            // audio instruction: special power
+            wavesurfer.load('audio/3practice_SP.mp3');
+            //voice talking
+            console.log("three: practice SP")
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
+        }
+
+        //PART 4: USE SPECIAL POWER
+        function four() {
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
+            $("#image-1").fadeOut(delay);
+            $("#image-2").fadeOut(delay);
+            $("#image-3").fadeOut(delay);
             $("#mainPoints1").fadeOut(delay);
             $("#mainPoints2").fadeOut(delay);
             $("#mainPoints3").fadeOut(delay);
 
             //something for the three container?
-            $("#three-container").show();
-            // go();
+            $("#three-container").show(); //is anything waiting to know about this index number for threejs?
 
             index++;
             //we want to populate dscreen with a new state
@@ -617,46 +659,42 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                 state: index
             })
 
-            document.getElementById("instrux").innerHTML = arrayWords[index];
-            
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-
             // audio instruction: special power
-            wavesurfer.load('audio/Fusion_2._Special_Power.mp3');
+            wavesurfer.load('audio/4use_SP.mp3');
             //voice talking
-            console.log("three: reveal hidden information")
-            // wavesurfer.on('ready', function() {
-            //     wavesurfer.play();
-            // });
+            console.log("four: reveal hidden information")
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
         }
+        //PART 5: Discuss What has been revealed
+        function five() {
+            document.getElementById("instrux").innerHTML = arrayWords[index];
 
-
-        //PART FOUR: Discuss What has been revealed
-        function four() {
-            // x.style.display = "none";
             theyLive = true;
 
             index++;
             dScreen.update({
                 state: index
             })
-            document.getElementById("instrux").innerHTML = arrayWords[index];
 
-            console.log("four: discuss what you revealed")
-            // wavesurfer.load('audio/4-Revealed.mp3');
-            // wavesurfer.on('ready', function() {
-            //     wavesurfer.play();
-            // });
+            console.log("five: discuss what you revealed")
+            wavesurfer.load('audio/5discuss_reveal.mp3');
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
         }
 
 
-        // PART FIVE: Discuss a Decision
+        // PART 6: Discuss a Decision
+        function six() {
 
-        function five() {
             $("#three-container").hide();
             theyLive = false;
+            document.getElementById("instrux").innerHTML = arrayWords[index];
             
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);
@@ -667,39 +705,53 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
             document.getElementById("mainPoints1").innerHTML = "Option A";
             document.getElementById("mainPoints2").innerHTML = "Option B";
             document.getElementById("mainPoints3").innerHTML = "Option C";
-            //inc. index by 1 on keydown
+
             index++;
             //we want to populate dscreen with a new state
             dScreen.update({
                 state: index
             })
 
-            document.getElementById("instrux").innerHTML = arrayWords[index];
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-            console.log("five: get ready to decide")
-            // ask players to make a decision
-            wavesurfer.load('audio/decide.mp3');
-            // wavesurfer.on('ready', function() {
-            //     wavesurfer.play();
-            // });
+            console.log("six: get ready to decide")
+            // ask players to prepare a decision
+            wavesurfer.load('audio/6discuss_choice.mp3');
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
+        }
 
-            // var x = document.getElementById('three-container');
-            // $("#three-container").fadeOut(delay * 1.1);
-            // x.style.opacity = .1;
+        // PART 7: Prep a Decision
+        function seven(){
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
+            index++;
+            //we want to populate dscreen with a new state
+            dScreen.update({
+                state: index
+            })
+
+            if(audioCtx.state === 'suspended') {
+              audioCtx.resume();
+            }
+            console.log("seven: state choice")
+            // ask players to prepare a decision
+            wavesurfer.load('audio/7state_choice.mp3');
+            wavesurfer.on('ready', function() {
+                wavesurfer.play();
+            });
         }
 
 
-        // PART SIX: Provide a Decision
-        function six() {
-            console.log("six: say your choice")
-            document.getElementById("instrux").innerHTML = arrayWords[index];
+        var padDelay = 2.9;
+        var aiUpdateDelay = 9000;
+        //PART 8: Decision recognition
+        function eight() {
+            console.log("eight: say your choice")
 
             answerNum = 0;
-            // if(audioCtx.state === 'suspended') {
-            //   audioCtx.resume();
-            // }
 
             // Define a new speech recognition instance
             var rec = null;
@@ -753,6 +805,9 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                     //then listening for decision (A, B, C)
                                     if (userSaid(str, 'a')) {
             $("#image-1").css("border", "5px solid #fff");
+            console.log("eight: choice registered, follow the new path")
+            document.getElementById("instrux").innerHTML = arrayWords[index]; //may need to be specifically "A" and so on
+
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -764,36 +819,38 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                         dScreen.update({
                                             state: index
                                         })
-            console.log("seven: choice registered, follow the new path")
-            document.getElementById("instrux").innerHTML = arrayWords[index]; //may need to be specifically "A" and so on
 
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
                                             answer = "Got it, Option Ay";
                                             readOutLoud(answer);
-                                        }, 3000);
+                                            //send the answer to the database so we can add it to the path
+                                            // answerNum = 1;
+                                            // dataToPath(answerNum);
+                                        }, 2000);
+                                        window.setTimeout(function() {
+                                            answerNum = 1;
+                                            dataToPath(answerNum);
+                                        }, aiUpdateDelay);
                                         //fade our other options
-            $("#image-2").fadeOut(delay);
-            $("#image-3").fadeOut(delay);
-            $("#image-1").fadeOut(delay);
+            $("#image-2").fadeOut(delay*padDelay);
+            $("#image-3").fadeOut(delay*padDelay);
+            $("#image-1").fadeOut(delay*padDelay);
 
-            $("#mainPoints1").fadeOut(delay);
-            $("#mainPoints2").fadeOut(delay);
-            $("#mainPoints3").fadeOut(delay);
+            $("#mainPoints1").fadeOut(delay*padDelay);
+            $("#mainPoints2").fadeOut(delay*padDelay);
+            $("#mainPoints3").fadeOut(delay*padDelay);
                                         //Thank you decision has been registered
                                         // Add voice update here
                                         //logic so AI videos aren't triggered twice
                                         // var runVidOnce = true;
-
-                                        //send the answer to the database so we can add it to the path
-                                        answerNum = 1;
-                                        dataToPath(answerNum);
-                                        //update the text on the screen
-                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
                                     }
                                     // Option B
                                     else if (userSaid(str, 'b')) {
             $("#image-2").css("border", "5px solid #fff");
+            console.log("eight: choice registered, follow the new path")
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -805,33 +862,36 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                         dScreen.update({
                                             state: index
                                         })
-            console.log("seven: choice registered, follow the new path")
-            document.getElementById("instrux").innerHTML = arrayWords[index];
-
-                                        answerNum = 2;
-                                        dataToPath(answerNum);
-                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
 
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
                                             answer = "Got it, Option B";
                                             console.log(answer)
                                             readOutLoud(answer);
-                                        }, 3000);
+                                            // answerNum = 2;
+                                            // dataToPath(answerNum);
+                                        }, 2000);
+                                        window.setTimeout(function() {
+                                            answerNum = 2;
+                                            dataToPath(answerNum);
+                                        }, aiUpdateDelay);
                                         //fade out other options
-            $("#image-1").fadeOut(delay);
-            $("#image-3").fadeOut(delay);
-            $("#image-2").fadeOut(delay);
+            $("#image-1").fadeOut(delay*padDelay);
+            $("#image-3").fadeOut(delay*padDelay);
+            $("#image-2").fadeOut(delay*padDelay);
 
-            $("#mainPoints1").fadeOut(delay);
-            $("#mainPoints2").fadeOut(delay);
-            $("#mainPoints3").fadeOut(delay);
+            $("#mainPoints1").fadeOut(delay*padDelay);
+            $("#mainPoints2").fadeOut(delay*padDelay);
+            $("#mainPoints3").fadeOut(delay*padDelay);
 
                                     }
 
                                     // Option C
                                     else if (userSaid(str, 'c')) {
             $("#image-3").css("border", "5px solid #fff");
+            console.log("eight: choice registered, follow the new path")
+            document.getElementById("instrux").innerHTML = arrayWords[index];
+
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -842,27 +902,27 @@ $('#image-3').attr('src','img/M_3_POV_3_1_3.png');
                                         dScreen.update({
                                             state: index
                                         })
-            console.log("seven: choice registered, follow the new path")
-            document.getElementById("instrux").innerHTML = arrayWords[index];
-
-                                        answerNum = 3;
-                                        dataToPath(answerNum);
-                                        // document.getElementById("instrux").innerHTML = arrayWords[index];
 
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
                                             answer = "Got it, Option C";
                                             console.log(answer)
                                             readOutLoud(answer);
-                                        }, 3000);
+                                            // answerNum = 3;
+                                            // dataToPath(answerNum);
+                                        }, 2000);
+                                        window.setTimeout(function() {
+                                            answerNum = 3;
+                                            dataToPath(answerNum);
+                                        }, aiUpdateDelay);
                                         //fade out other options
-            $("#image-1").fadeOut(delay);
-            $("#image-2").fadeOut(delay);
-            $("#image-3").fadeOut(delay);
+            $("#image-1").fadeOut(delay*padDelay);
+            $("#image-2").fadeOut(delay*padDelay);
+            $("#image-3").fadeOut(delay*padDelay);
 
-            $("#mainPoints1").fadeOut(delay);
-            $("#mainPoints2").fadeOut(delay);
-            $("#mainPoints3").fadeOut(delay);
+            $("#mainPoints1").fadeOut(delay*padDelay);
+            $("#mainPoints2").fadeOut(delay*padDelay);
+            $("#mainPoints3").fadeOut(delay*padDelay);
                                     } else {}
 
                                 }
