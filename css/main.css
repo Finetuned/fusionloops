@@ -19,6 +19,7 @@ body {
   font-family: cineLight, sans-serif;
   color: #333;
   background-color: black;
+  overflow-y: hidden;
 }
 
 .rec-status {
@@ -43,13 +44,12 @@ body {
 }
 
 #three-container {
-  display: none;
-  position: absolute;
-  float: left;
-  width: 400px;
-  margin-left: 30px;
-  margin-top: -335px;
-  /*-102px;*/
+    display: none;
+    position: absolute;
+    /* float: left; */
+    /* width: 400px; */
+    /* margin-left: 76px; */
+    margin-top: -452px;
 }
 
 #data {
@@ -96,17 +96,22 @@ body {
 }
 
 #imageContainer {
-  width: 400px;
+/*  width: 400px;
   margin-left: 50px;
   margin-top: 20px;
   font-family: cineLight, sans-serif;
-  position: absolute;
+  position: absolute;*/
+    width: 400px;
+    margin-left: 280px;
+    margin-top: 52px;
+    font-family: cineLight, sans-serif;
+    position: absolute;
 }
 
-#imageContainer figcaption {
+/*#imageContainer figcaption {
   margin-top: 2rem;
   display: none;
-}
+}*/
 
 .image {
   display: none;
@@ -127,24 +132,33 @@ body {
 #mainPoints1 {
   display: none;
   position: absolute;
-  width: 400px;
-  margin-left: 10%;
-  margin-top: 120%;
-  /*    margin-left: 6%;
-    margin-top: 57%;*/
+  width: 278px;
+  margin-left: 340px;
+  margin-top: 632px;
   color: white;
   font-family: cineLight, sans-serif;
   font-size: 24px;
   z-index: 100;
+/*  position: absolute;
+  width: 400px;
+  margin-left: 10%;
+  margin-top: 120%;
+  color: white;
+  font-family: cineLight, sans-serif;
+  font-size: 24px;
+  z-index: 100;*/
 }
 
 #mainPoints2 {
   display: none;
-  width: 400px;
-  margin-left: 10%;
-  margin-top: 120%;
-  /*    margin-left: 6%;
-    margin-top: 57%;*/
+  color: white;
+  font-family: cineLight, sans-serif;
+  font-size: 24px;
+  z-index: 100;
+  position: absolute;
+  width: 278px;
+  margin-left: 286px;
+  margin-top: 637px;
   color: white;
   font-family: cineLight, sans-serif;
   font-size: 24px;
@@ -153,11 +167,10 @@ body {
 
 #mainPoints3 {
   display: none;
-  width: 400px;
-  margin-left: 10%;
-  margin-top: 120%;
-  /*    margin-left: 6%;
-    margin-top: 57%;*/
+  position: absolute;
+  width: 278px;
+  margin-left: 230px;
+  margin-top: 637px;
   color: white;
   font-family: cineLight, sans-serif;
   font-size: 24px;
@@ -171,7 +184,7 @@ body {
 
 .bottomBubble {
   position: absolute;
-  margin-top: 70%;
+  margin-top: 1153px;
   width: 100%;
   font-size: 24px;
   color: white;
@@ -181,28 +194,22 @@ body {
 
 #instrux {
    display: none; 
-  /* float: left; */
-  width: 400px;
-  margin-left: 24%;
-  position: absolute;
-  /* margin-top: 36%; */
-  /* color: white; */
-  /* font-family: cineLight, sans-serif; */
-  /* font-size: 24px; */
-  z-index: 100;
+    width: 278px;
+    margin-left: 740px;
+    position: absolute;
+    z-index: 100;
 }
 
 #timer {
    display: none; 
-  /* float: right; */
-  position: absolute;
-  width: 400px;
-  margin-left: 50%;
-  /* margin-top: 36%; */
-  color: white;
-  font-family: cineLight, sans-serif;
-  font-size: 24px;
-  z-index: 100;
+    position: absolute;
+    width: 278px;
+    right: 750px;
+    /* margin-top: 36%; */
+    color: white;
+    font-family: cineLight, sans-serif;
+    font-size: 24px;
+    z-index: 100;
 }
 
 #time {
@@ -223,8 +230,8 @@ body {
 
 .imageContainer {
   width: 400px;
-  margin-left: 50px;
-  margin-top: 20px;
+  margin-left: 280px;
+  margin-top: 50px;
   font-family: cineLight, sans-serif;
   position: absolute;
 }
@@ -257,6 +264,7 @@ body {
   position: relative;
   width: 100%;
   z-index: 2;
+  margin-left: -119px;
 }
 
 #image-3 {
@@ -265,6 +273,7 @@ body {
   position: relative;
   width: 100%;
   z-index: 2;
+  margin-left: -234px;
 }
 
 wave {

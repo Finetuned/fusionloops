@@ -228,7 +228,7 @@ function startMain(pressIndex) {
             if (activePath.toString().length == 3) {
                 console.log(activePath + " we took this choice"); //from mission two
                 $("#instrux").hide();
-                $("#timer").hide(); 
+                $("#timer").fadeOut(); 
 
                 aiUpdate1();
                 //after
@@ -239,7 +239,7 @@ function startMain(pressIndex) {
                 //this depends on their decision
                 console.log(activePath + " we took this choice"); //from mission two
                 $("#instrux").hide();
-                $("#timer").hide(); 
+                $("#timer").fadeOut(); 
 
                 aiUpdate2();
                 //after
@@ -248,7 +248,7 @@ function startMain(pressIndex) {
             if (activePath.toString().length == 5) { //from mission three
                 //this depends on their decision
                 $("#instrux").hide();
-                $("#timer").hide(); 
+                $("#timer").fadeOut(); 
 
                 aiUpdate3();
                 //after
@@ -437,7 +437,7 @@ function startMain(pressIndex) {
                 $("#mainPoints2").fadeOut();
                 $("#mainPoints3").fadeOut();
                 $("#instrux").hide();
-                $("#timer").hide(); 
+                $("#timer").fadeOut(); 
 
                 //game over
             }
@@ -564,10 +564,11 @@ function startMain(pressIndex) {
             $("#image-2").css("border", "none");
             $("#image-3").css("border", "none");
 
-            totalTime = 3;
+            totalTime = 15000; //total time + time she takes to talk will be 120000 +
             countDownInterval = setInterval(myTimer, 1000);
-            $("#instrux").show(); //should there  be a fade delay
-            $("#timer").show(); //should there  be a fade delay
+            $("#timer").fadeIn(9000); //wait until she says the thing
+
+            $("#instrux").show();
 
             //inc. index by 1 on keydown
             index++;
@@ -592,8 +593,8 @@ function startMain(pressIndex) {
         //PART 2: CHECK WHO HAS SPECIAL POWERS
         function two() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 4;
-            countDownInterval = setInterval(myTimer, 1000);
+
+            $("#timer").fadeOut(); 
 
             index++;
             //we want to populate dscreen with a new state
@@ -615,8 +616,6 @@ function startMain(pressIndex) {
         //PART 3: PRACTICE SPECIAL POWER
         function three() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 3;
-            countDownInterval = setInterval(myTimer, 1000);
 
             index++;
             //we want to populate dscreen with a new state
@@ -639,8 +638,6 @@ function startMain(pressIndex) {
         //PART 4: USE SPECIAL POWER
         function four() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 5;
-            countDownInterval = setInterval(myTimer, 1000);
 
             $("#image-1").fadeOut(delay);
             $("#image-2").fadeOut(delay);
@@ -672,8 +669,9 @@ function startMain(pressIndex) {
         //PART 5: Discuss What has been revealed
         function five() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 3;
+            totalTime = 11000; //total time + time she takes to talk will be 60000 +
             countDownInterval = setInterval(myTimer, 1000);
+            $("#timer").fadeIn(5000); //wait until she says the thing
 
             theyLive = true;
 
@@ -692,12 +690,16 @@ function startMain(pressIndex) {
 
         // PART 6: Discuss a Decision
         function six() {
+            $("#timer").fadeOut();
 
             $("#three-container").hide();
             theyLive = false;
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 4;
+
+            totalTime = 14000; //total time + time she takes to talk will be 60000 +
             countDownInterval = setInterval(myTimer, 1000);
+            $("#timer").fadeIn(8000); //wait until she says the thing
+
 
             $("#image-1").fadeIn(delay * 1.3);
             $("#image-2").fadeIn(delay * 1.3);
@@ -729,9 +731,8 @@ function startMain(pressIndex) {
         // PART 7: Prep a Decision
         function seven() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 3;
-            countDownInterval = setInterval(myTimer, 1000);
-            
+            $("#timer").fadeOut();
+
             index++;
             //we want to populate dscreen with a new state
             dScreen.update({
