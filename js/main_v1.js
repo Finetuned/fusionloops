@@ -507,9 +507,12 @@ function startMain(pressIndex) {
             dScreen.update({
                 state: 0
             })
+            totalTime = 0;
             // console.log(newState);
             console.log(pressIndex + "in pov start");
             // if(pressIndex==newState){
+                four();
+
             var myTimer = setTimeout(one, timings[0]);
             var myTimer = setTimeout(two, timings[1]);
             var myTimer = setTimeout(three, timings[2]);
@@ -564,7 +567,7 @@ function startMain(pressIndex) {
             $("#image-2").css("border", "none");
             $("#image-3").css("border", "none");
 
-            totalTime = 15000; //total time + time she takes to talk will be 120000 +
+            totalTime = 2000; //total time + time she takes to talk will be 120000 +
             countDownInterval = setInterval(myTimer, 1000);
             $("#timer").fadeIn(9000); //wait until she says the thing
 
@@ -593,7 +596,7 @@ function startMain(pressIndex) {
         //PART 2: CHECK WHO HAS SPECIAL POWERS
         function two() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-
+            totalTime = 0;
             $("#timer").fadeOut(); 
 
             index++;
@@ -669,7 +672,7 @@ function startMain(pressIndex) {
         //PART 5: Discuss What has been revealed
         function five() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 11000; //total time + time she takes to talk will be 60000 +
+            totalTime = 1000; //total time + time she takes to talk will be 60000 +
             countDownInterval = setInterval(myTimer, 1000);
             $("#timer").fadeIn(5000); //wait until she says the thing
 
@@ -691,7 +694,7 @@ function startMain(pressIndex) {
         // PART 6: Discuss a Decision
         function six() {
             $("#timer").fadeOut();
-
+            totalTime = 0;
             $("#three-container").hide();
             theyLive = false;
             document.getElementById("instrux").innerHTML = arrayWords[index];
@@ -732,6 +735,7 @@ function startMain(pressIndex) {
         function seven() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
             $("#timer").fadeOut();
+            totalTime = 0;
 
             index++;
             //we want to populate dscreen with a new state

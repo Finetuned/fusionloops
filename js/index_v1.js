@@ -13,7 +13,7 @@ var slide4;
 var slide5;
 var slide6;
 
-var spacing = window.innerWidth/37.2;
+var spacing = window.innerWidth/22.9;
 var index = 0;
 console.log("variables loaded")
 
@@ -143,7 +143,7 @@ go = function(){
 	l1.load(m1pov1, function(img) {
 	  slide.setImage(img);
 	})
-  slide.position.set(-spacing,0,0)
+  slide.position.set(-spacing/2,0,0)
   root.scene.add(slide);
   //  //Super Power Text
   slide2 = new Slide(width, height, 'out');
@@ -152,7 +152,7 @@ go = function(){
 	l2.load(m1sp1, function(img) {
 		slide2.setImage(img);
 	})
-  slide2.position.set(-spacing,0,0)
+  slide2.position.set(-spacing/2,0,0)
   root.scene.add(slide2);
 
 
@@ -165,7 +165,7 @@ go = function(){
   l3.load(m1pov2, function(img) {
     slide3.setImage(img);
   })
-  slide3.position.set(0,0,0)
+  slide3.position.set(-.5,0,0)
   root.scene.add(slide3);
   slide4 = new Slide(width, height, 'out');
   var l4 = new THREE.ImageLoader();
@@ -173,7 +173,7 @@ go = function(){
   l4.load(m1sp2, function(img) {
     slide4.setImage(img);
   })
-  slide4.position.set(0,0,0)
+  slide4.position.set(-.5,0,0)
   root.scene.add(slide4);
 
   tl.add(slide3.transition(), 0);
@@ -186,7 +186,7 @@ go = function(){
     l5.load(m1pov3, function(img) {
       slide5.setImage(img);
     })
-    slide5.position.set(spacing,0,0)
+    slide5.position.set((spacing/2)-.5,0,0)
     root.scene.add(slide5);
     slide6 = new Slide(width, height, 'out');
     var l6 = new THREE.ImageLoader();
@@ -194,7 +194,7 @@ go = function(){
     l6.load(m1sp3, function(img) {
       slide6.setImage(img);
     })
-    slide6.position.set(spacing,0,0)
+    slide6.position.set((spacing/2)-.5,0,0)
     root.scene.add(slide6);
     tl.add(slide5.transition(), 0);
     tl.add(slide6.transition(), 0);
@@ -642,7 +642,7 @@ function getBrushPos(xRef) {
     var bridgeRect = bridge.getBoundingClientRect();
 
     return{
-        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right),
+        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right/4),
     }
 }  
 
