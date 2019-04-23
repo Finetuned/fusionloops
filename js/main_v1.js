@@ -9,6 +9,7 @@
 //global variable time = 6000...
 
 //timer delays
+//fast version
 // var step1 = 2000; //audio lasts 9 seconds
 // var step2 = step1 + 18000; //wait an extra 6 seconds for discussion. then give a 3 sec pause then step 2 is triggered whose audio lasts 8 seconds
 // var step3 = step2 + 17000; //wait an extra 6 seconds for checking cards. then give a 3 sec pause then step 3 is triggered whose audio lasts 5 seconds
@@ -18,7 +19,7 @@
 // var step7 = step6 + 15000; //3 sec pause. step7 audio lasts 8 seconds
 // var step8 = step7 + 10000; //3 sec pause. no audio here except AI update which has timeout of 5 seconds
 
-
+//real version
 var step1 = 2000; //audio lasts 9 seconds + 2 minutes discussion
 var step2 = step1 + 9000 + 120000; //this step's audio lasts 8 secs //checking cards lasts 8 seconds
 var step3 = step2 + 8000 + 8000; //this step's audio lasts 5 secs //practice SP lasts 5 seconds
@@ -563,9 +564,9 @@ function startMain(pressIndex) {
             $("#image-2").css("border", "none");
             $("#image-3").css("border", "none");
 
-            totalTime = 12; //total time + time she takes to talk will be 129 +
+            totalTime = 129; //total time + time she takes to talk will be 129 +
             countDownInterval = setInterval(myTimer, 1000);
-            $("#timer").delay(10000).fadeIn(); //wait until she says the thing
+            $("#timer").delay(9000).fadeIn(); //wait until she says the thing
 
             $("#instrux").show();
 
@@ -668,9 +669,9 @@ function startMain(pressIndex) {
         //PART 5: Discuss What has been revealed
         function five() {
             document.getElementById("instrux").innerHTML = arrayWords[index];
-            totalTime = 9; //69 //total time + time she takes to talk 
+            totalTime = 65; //65 //total time + time she takes to talk 
             countDownInterval = setInterval(myTimer, 1000);
-            $("#timer").delay(6000).fadeIn(); //wait until she says the thing
+            $("#timer").delay(5000).fadeIn(); //wait until she says the thing
 
             theyLive = true;
 
@@ -697,7 +698,7 @@ function startMain(pressIndex) {
 
             setTimeout(function(){
                 $("#timer").fadeIn(); //wait until she says the thing
-                totalTime = 5; //will be 69 //total time + time she takes to talk will be 60000 +
+                totalTime = 60; //will be 69 //total time + time she takes to talk will be 60000 +
                 countDownInterval = setInterval(myTimer, 1000);
             },8000)
 

@@ -94,14 +94,24 @@ var lightMission;
 
 var lightStuffUp;
 
-var lengthVid = 6000; //update these
-var lengthWalk = 2000; //update these
+var lengthVid = 6000; //update this from 6 secs to 1 minute
+var lengthPause = 2000; //update these
 
 var timeTil1Starts = 3000; //trying to start pov1 faster than the others
-var timeTil2Starts = timeTil1Starts + lengthVid + lengthWalk; //2 should start when 1 has finished
-var timeTil3Starts = timeTil2Starts + lengthVid + lengthWalk;
-var timeTil3Stops = timeTil3Starts + lengthVid + lengthWalk;
-var timeTil4Clears = timeTil3Stops + lengthWalk;
+//fast timers
+// var lengthVid = 6000; //updated this from 6 secs to 1 minute
+// var lengthWalk = 2000; //update these
+// var timeTil2Starts = timeTil1Starts + lengthVid + lengthWalk; //2 should start when 1 has finished
+// var timeTil3Starts = timeTil2Starts + lengthVid + lengthWalk;
+// var timeTil3Stops = timeTil3Starts + lengthVid + lengthWalk;
+// var timeTil4Clears = timeTil3Stops + lengthWalk;
+
+//real timers
+var timeTil2Starts = timeTil1Starts + lengthVid + lengthPause; //2 should start when 1 has finished
+var timeTil3Starts = timeTil2Starts + lengthVid + lengthPause;
+var timeTil3Stops = timeTil3Starts + lengthVid + lengthPause;
+var timeTil4Clears = timeTil3Stops + lengthPause;
+
 
 // var lengthPovTime = 9000; //this is just for the LEDs to know how long they should wait until they light up the next POV
 
@@ -112,12 +122,6 @@ function myStartFunction(pathNum){
 	var lightStuffUp= setTimeout(lightMission, timeTil3Starts);	//
 	var lightStuffUp= setTimeout(lightMission, timeTil3Stops);	
 	var lightStuffUp= setTimeout(lightMission, timeTil4Clears);	
-
-	// var lightStuffUp= setTimeout(lightMission, 1000);	//turn on 3 secs afer i send the function
-	// var lightStuffUp= setTimeout(lightMission, 2000);	//11 secs after previous goes off
-	// var lightStuffUp= setTimeout(lightMission, 3000);	//
-	// var lightStuffUp= setTimeout(lightMission, 4000);	
-	// var lightStuffUp= setTimeout(lightMission, 5000);
 
 	// lightStuffUp= setInterval(lightMission, lengthPovTime);	
 }
