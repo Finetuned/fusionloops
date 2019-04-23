@@ -9,27 +9,25 @@
 //global variable time = 6000...
 
 //timer delays
-// var timings = [1000, 10000, 20000, 30000, 40000, 60000];
+// var step1 = 2000; //audio lasts 9 seconds
+// var step2 = step1 + 18000; //wait an extra 6 seconds for discussion. then give a 3 sec pause then step 2 is triggered whose audio lasts 8 seconds
+// var step3 = step2 + 17000; //wait an extra 6 seconds for checking cards. then give a 3 sec pause then step 3 is triggered whose audio lasts 5 seconds
+// var step4 = step3 + 13000; //waits an extra 5 seconds for practicing. then give a 3 sec pause then step 4 is triggered whose audio lasts 5 seconds
+// var step5 = step4 + 18000; //waits an extra 10 seconds for revealing with hands time. then step5 audio lasts 5 seconds 
+// var step6 = step5 + 12000; //wait an extra 5 seconds to discuss what we revealed. then 3 second pause. then step6 audio lasts 8 seconds
+// var step7 = step6 + 15000; //3 sec pause. step7 audio lasts 8 seconds
+// var step8 = step7 + 10000; //3 sec pause. no audio here except AI update which has timeout of 5 seconds
 
 
-// var timings = [1000, 7000, 12000, 22000, 29000, 35000];
+var step1 = 2000; //audio lasts 9 seconds + 2 minutes discussion
+var step2 = step1 + 9000 + 120000; //this step's audio lasts 8 secs //checking cards lasts 8 seconds
+var step3 = step2 + 8000 + 8000; //this step's audio lasts 5 secs //practice SP lasts 5 seconds
+var step4 = step3 + 5000 + 5000; //this step's audio lasts 5 secs //use SP lasts 10 seconds
+var step5 = step4 + 5000 + 10000; //this step's audio lasts 5 secs //discuss reveal lasts 60 seconds
+var step6 = step5 + 5000 + 60000; //this step's audio lasts 8 secs //discuss choice lasts 60 seconds
+var step7 = step6 + 8000 + 60000; //this step's audio lasts 8 secs //state choice lasts 5 seconds
+var step8 = step7 + 8000 + 5000; //no audio
 
-// var step1 = 2000;
-// var step2 = step1 + 9000;
-// var step3 = step2 + 6000;
-// var step4 = step3 + 20000;
-// var step5 = step4 + 6000;
-// var step6 = step5 + 9000;
-// var step7 = step6 + 9000;
-// var step8 = step7 + 9000;
-var step1 = 2000; //audio lasts 9 seconds
-var step2 = step1 + 18000; //wait an extra 6 seconds for discussion. then give a 3 sec pause then step 2 is triggered whose audio lasts 8 seconds
-var step3 = step2 + 17000; //wait an extra 6 seconds for checking cards. then give a 3 sec pause then step 3 is triggered whose audio lasts 5 seconds
-var step4 = step3 + 13000; //waits an extra 5 seconds for practicing. then give a 3 sec pause then step 4 is triggered whose audio lasts 5 seconds
-var step5 = step4 + 18000; //waits an extra 10 seconds for revealing with hands time. then step5 audio lasts 5 seconds 
-var step6 = step5 + 12000; //wait an extra 5 seconds to discuss what we revealed. then 3 second pause. then step6 audio lasts 8 seconds
-var step7 = step6 + 15000; //3 sec pause. step7 audio lasts 8 seconds
-var step8 = step7 + 10000; //3 sec pause. no audio here except AI update which has timeout of 5 seconds
 var timings = [step1, step2, step3, step4, step5, step6, step7, step8]
 
 //commands for animation
