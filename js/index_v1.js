@@ -39,7 +39,7 @@ var m2pov2 = "../img/M_2_POV_2.png";
 var m2pov3 = "../img/M_2_POV_3.png";
 //M2 SP TEXT
 //special case for sp1 text which has one change in a particular path
-var m2sp1Array = ['../img/SP_POW_POV_1_1.png','../img/SP_POW_POV_1_2.png', '../img/SP_POW_POV_1_3.png']; 
+var m2sp1Array = ['../img/SP_POW_POV_1_1.png','../img/SP_POW_POV_1_1.png', '../img/SP_POW_POV_3_1.png']; 
 var m2sp2 = '../img/SP_POW_POV_1_2.png';
 var m2sp3 = '../img/SP_POW_POV_1_3.png';
 
@@ -642,7 +642,7 @@ function getBrushPos(xRef) {
     var bridgeRect = bridge.getBoundingClientRect();
 
     return{
-        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right/6),
+        x: scale(xRef, -200, 200, bridgeRect.left, bridgeRect.right/4),
     }
 }  
 

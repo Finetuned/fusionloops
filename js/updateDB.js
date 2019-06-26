@@ -94,8 +94,8 @@ var lightMission;
 
 var lightStuffUp;
 
-var lengthVid = 6000; //update this from 6 secs to 1 minute
-var lengthPause = 2000; //update these
+var lengthVid = 60000; //update this from 6 secs to 1 minute
+var lengthPause = 10000; //update these
 
 var timeTil1Starts = 3000; //trying to start pov1 faster than the others
 //fast timers

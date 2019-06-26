@@ -21,12 +21,12 @@
 
 //real version
 var step1 = 2000; //audio lasts 9 seconds + 2 minutes discussion
-var step2 = step1 + 9000 + 120000; //this step's audio lasts 8 secs //checking cards lasts 8 seconds
+var step2 = step1 + 9000 + 60000; //this step's audio lasts 8 secs //checking cards lasts 8 seconds
 var step3 = step2 + 8000 + 8000; //this step's audio lasts 5 secs //practice SP lasts 5 seconds
-var step4 = step3 + 5000 + 5000; //this step's audio lasts 5 secs //use SP lasts 10 seconds
-var step5 = step4 + 5000 + 10000; //this step's audio lasts 5 secs //discuss reveal lasts 60 seconds
+var step4 = step3 + 5000 + 8000; //this step's audio lasts 5 secs //use SP lasts 10 seconds
+var step5 = step4 + 5000 + 16000; //this step's audio lasts 5 secs //discuss reveal lasts 60 seconds
 var step6 = step5 + 5000 + 60000; //this step's audio lasts 8 secs //discuss choice lasts 60 seconds
-var step7 = step6 + 8000 + 60000; //this step's audio lasts 8 secs //state choice lasts 5 seconds
+var step7 = step6 + 8000 + 30000; //this step's audio lasts 8 secs //state choice lasts 5 seconds
 var step8 = step7 + 8000 + 5000; //no audio
 
 var timings = [step1, step2, step3, step4, step5, step6, step7, step8]
@@ -46,7 +46,7 @@ var dScreen = firebase.database().ref('/fusionDB/dScreen');
 
 var pressIndex = 0; //they have never pressed the button after a mission
 //Here we check if they watched the intro
-var isIntroOver = false;
+var isIntroOver = true;
 
 
 
@@ -141,7 +141,7 @@ function startIntro() {
 var goOn = true; //will this work?
 function startMain(pressIndex) {
     var arrayWords = ["Welcome Back! Discuss what you saw", "Check your cards", "Practice your special power", "Use your special power!",
-        "Discuss what you revealed", "Get ready to choose", "Say your choice loudly: Option ___", "Got it. Registering your decision..."
+        "Discuss what you revealed", "Get ready to choose", "Try to be load and clear", "Got it. Registering your decision..."
     ]
 
 
@@ -564,7 +564,7 @@ function startMain(pressIndex) {
             $("#image-2").css("border", "none");
             $("#image-3").css("border", "none");
 
-            totalTime = 129; //total time + time she takes to talk will be 129 +
+            totalTime = 69; //total time + time she takes to talk will be 129 +
             countDownInterval = setInterval(myTimer, 1000);
             $("#timer").delay(9000).fadeIn(); //wait until she says the thing
 
@@ -698,7 +698,7 @@ function startMain(pressIndex) {
 
             setTimeout(function(){
                 $("#timer").fadeIn(); //wait until she says the thing
-                totalTime = 60; //will be 69 //total time + time she takes to talk will be 60000 +
+                totalTime = 30; //will be 69 //total time + time she takes to talk will be 60000 +
                 countDownInterval = setInterval(myTimer, 1000);
             },8000)
 
@@ -753,11 +753,13 @@ function startMain(pressIndex) {
         }
 
 
-        var padDelay = 2.9;
+        var padDelay = 3.1;
         var aiUpdateDelay = 9000;
         //PART 8: Decision recognition
         function eight() {
             console.log("eight: say your choice")
+            document.getElementById("instrux").innerHTML = "Say your choice now!";
+            $("#timer").fadeIn();
 
             answerNum = 0;
 
@@ -808,6 +810,8 @@ function startMain(pressIndex) {
                             if (parseFloat(e.results[i][0].confidence) >= parseFloat(confidenceThreshold)) {
                                 var str = e.results[i][0].transcript;
                                 console.log('Recognised: ' + str);
+            document.getElementById("time").innerHTML =  'Recognised: ' + str;
+
                                 // If the user said 'option' then parse it further
                                 if (userSaid(str, 'option')) {
                                     //then listening for decision (A, B, C)
@@ -815,7 +819,7 @@ function startMain(pressIndex) {
                                         $("#image-1").css("border", "5px solid #fff");
                                         console.log("eight: choice registered, follow the new path")
                                         document.getElementById("instrux").innerHTML = arrayWords[index]; //may need to be specifically "A" and so on
-
+            document.getElementById("time").innerHTML =  'Recognised: ' + str;
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -830,12 +834,12 @@ function startMain(pressIndex) {
 
                                         //Time Out 5s before playing response for realism
                                         window.setTimeout(function() {
-                                            answer = "Got it, Option Ay";
+                                            answer = "Got it, Option A";
                                             readOutLoud(answer);
                                             //send the answer to the database so we can add it to the path
                                             // answerNum = 1;
                                             // dataToPath(answerNum);
-                                        }, 2000);
+                                        }, 1000);
                                         window.setTimeout(function() {
                                             answerNum = 1;
                                             dataToPath(answerNum);
@@ -858,6 +862,7 @@ function startMain(pressIndex) {
                                         $("#image-2").css("border", "5px solid #fff");
                                         console.log("eight: choice registered, follow the new path")
                                         document.getElementById("instrux").innerHTML = arrayWords[index];
+            document.getElementById("time").innerHTML =  'Recognised: ' + str;
 
                                         console.log("border applied");
                                         rec.stop();
@@ -878,7 +883,7 @@ function startMain(pressIndex) {
                                             readOutLoud(answer);
                                             // answerNum = 2;
                                             // dataToPath(answerNum);
-                                        }, 2000);
+                                        }, 1000);
                                         window.setTimeout(function() {
                                             answerNum = 2;
                                             dataToPath(answerNum);
@@ -899,7 +904,8 @@ function startMain(pressIndex) {
                                         $("#image-3").css("border", "5px solid #fff");
                                         console.log("eight: choice registered, follow the new path")
                                         document.getElementById("instrux").innerHTML = arrayWords[index];
-
+            document.getElementById("time").innerHTML =  'Recognised: ' + str;
+9
                                         console.log("border applied");
                                         rec.stop();
                                         console.log("stopped recording")
@@ -918,7 +924,7 @@ function startMain(pressIndex) {
                                             readOutLoud(answer);
                                             // answerNum = 3;
                                             // dataToPath(answerNum);
-                                        }, 2000);
+                                        }, 1000);
                                         window.setTimeout(function() {
                                             answerNum = 3;
                                             dataToPath(answerNum);
